@@ -1,0 +1,602 @@
+{
+    "typeMatches": [
+        {
+            "matchType": "International",
+            "seriesMatches": [
+                {
+                    "seriesAdWrapper": {
+                        "seriesId": 11595,
+                        "seriesName": "Australia tour of South Africa, 2026",
+                        "matches": [
+                            {
+                                "matchInfo": {
+                                    "matchId": 147920,
+                                    "seriesId": 11595,
+                                    "seriesName": "Australia tour of South Africa, 2026",
+                                    "matchDesc": "1st Test",
+                                    "matchFormat": "TEST",
+                                    "startDate": "1791531000000",
+                                    "endDate": "1791901800000",
+                                    "state": "Preview",
+                                    "status": "Match starts at Oct 09, 07:30 GMT",
+                                    "team1": {
+                                        "teamId": 11,
+                                        "teamName": "South Africa",
+                                        "teamSName": "RSA",
+                                        "imageId": 776287
+                                    },
+                                    "team2": {
+                                        "teamId": 4,
+                                        "teamName": "Australia",
+                                        "teamSName": "AUS",
+                                        "imageId": 776202
+                                    },
+                                    "venueInfo": {
+                                        "id": 74,
+                                        "ground": "Kingsmead",
+                                        "city": "Durban",
+                                        "timezone": "+02:00",
+                                        "latitude": "-29.850018",
+                                        "longitude": "31.027888"
+                                    },
+                                    "seriesStartDt": "1790208000000",
+                                    "seriesEndDt": "1793577600000",
+                                    "isTimeAnnounced": true,
+                                    "stateTitle": "Preview",
+                                    "hideScoreStatus": "Match starts at Oct 09, 07:30 GMT"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "seriesAdWrapper": {
+                        "seriesId": 13187,
+                        "seriesName": "Afghanistan vs Bangladesh in UAE, 2026",
+                        "matches": [
+                            {
+                                "matchInfo": {
+                                    "matchId": 172671,
+                                    "seriesId": 13187,
+                                    "seriesName": "Afghanistan vs Bangladesh in UAE, 2026",
+                                    "matchDesc": "One-off Test",
+                                    "matchFormat": "TEST",
+                                    "startDate": "1791523800000",
+                                    "endDate": "1791894600000",
+                                    "state": "Preview",
+                                    "status": "Match starts at Oct 09, 05:30 GMT",
+                                    "team1": {
+                                        "teamId": 96,
+                                        "teamName": "Afghanistan",
+                                        "teamSName": "AFG",
+                                        "imageId": 776177
+                                    },
+                                    "team2": {
+                                        "teamId": 6,
+                                        "teamName": "Bangladesh",
+                                        "teamSName": "BAN",
+                                        "imageId": 776210
+                                    },
+                                    "venueInfo": {
+                                        "id": 94,
+                                        "ground": "Sheikh Zayed Stadium",
+                                        "city": "Abu Dhabi",
+                                        "timezone": "+04:00",
+                                        "latitude": "24.416138",
+                                        "longitude": "54.453566"
+                                    },
+                                    "seriesStartDt": "1791504000000",
+                                    "seriesEndDt": "1792022400000",
+                                    "isTimeAnnounced": true,
+                                    "stateTitle": "Preview",
+                                    "hideScoreStatus": "Match starts at Oct 09, 05:30 GMT"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "seriesAdWrapper": {
+                        "seriesId": 13253,
+                        "seriesName": "ICC Men's T20 World Cup Asia Sub Regional Qualifier A 2026",
+                        "matches": [
+                            {
+                                "matchInfo": {
+                                    "matchId": 173753,
+                                    "seriesId": 13253,
+                                    "seriesName": "ICC Men's T20 World Cup Asia Sub Regional Qualifier A 2026",
+                                    "matchDesc": "10th Match",
+                                    "matchFormat": "T20",
+                                    "startDate": "1791508500000",
+                                    "endDate": "1791521100000",
+                                    "state": "Preview",
+                                    "status": "Match starts at Oct 09, 01:15 GMT",
+                                    "team1": {
+                                        "teamId": 1804,
+                                        "teamName": "Mongolia",
+                                        "teamSName": "MGL",
+                                        "imageId": 349598
+                                    },
+                                    "team2": {
+                                        "teamId": 384,
+                                        "teamName": "Thailand",
+                                        "teamSName": "THAI",
+                                        "imageId": 172437
+                                    },
+                                    "venueInfo": {
+                                        "id": 394,
+                                        "ground": "Bayuemas Oval",
+                                        "city": "Kuala Lumpur",
+                                        "timezone": "+08:00",
+                                        "latitude": "2.819586",
+                                        "longitude": "101.5199"
+                                    },
+                                    "seriesStartDt": "1791158400000",
+                                    "seriesEndDt": "1792108800000",
+                                    "isTimeAnnounced": true,
+                                    "stateTitle": "Preview",
+                                    "hideScoreStatus": "Match starts at Oct 09, 01:15 GMT"
+                                }
+                            },
+                            {
+                                "matchInfo": {
+                                    "matchId": 173760,
+                                    "seriesId": 13253,
+                                    "seriesName": "ICC Men's T20 World Cup Asia Sub Regional Qualifier A 2026",
+                                    "matchDesc": "11th Match",
+                                    "matchFormat": "T20",
+                                    "startDate": "1791508500000",
+                                    "endDate": "1791521100000",
+                                    "state": "Preview",
+                                    "status": "Match starts at Oct 09, 01:15 GMT",
+                                    "team1": {
+                                        "teamId": 543,
+                                        "teamName": "Bahrain",
+                                        "teamSName": "BHR",
+                                        "imageId": 172594
+                                    },
+                                    "team2": {
+                                        "teamId": 298,
+                                        "teamName": "Kuwait",
+                                        "teamSName": "KUW",
+                                        "imageId": 776312
+                                    },
+                                    "venueInfo": {
+                                        "id": 1853,
+                                        "ground": "YSD-UKM Cricket Oval",
+                                        "city": "Bangi",
+                                        "timezone": "+08:00",
+                                        "latitude": "2.9348189",
+                                        "longitude": "101.7823779"
+                                    },
+                                    "seriesStartDt": "1791158400000",
+                                    "seriesEndDt": "1792108800000",
+                                    "isTimeAnnounced": true,
+                                    "stateTitle": "Preview",
+                                    "hideScoreStatus": "Match starts at Oct 09, 01:15 GMT"
+                                }
+                            },
+                            {
+                                "matchInfo": {
+                                    "matchId": 173761,
+                                    "seriesId": 13253,
+                                    "seriesName": "ICC Men's T20 World Cup Asia Sub Regional Qualifier A 2026",
+                                    "matchDesc": "12th Match",
+                                    "matchFormat": "T20",
+                                    "startDate": "1791508500000",
+                                    "endDate": "1791521100000",
+                                    "state": "Preview",
+                                    "status": "Match starts at Oct 09, 01:15 GMT",
+                                    "team1": {
+                                        "teamId": 525,
+                                        "teamName": "Qatar",
+                                        "teamSName": "QAT",
+                                        "imageId": 172575
+                                    },
+                                    "team2": {
+                                        "teamId": 565,
+                                        "teamName": "Myanmar",
+                                        "teamSName": "MMR",
+                                        "imageId": 172617
+                                    },
+                                    "venueInfo": {
+                                        "id": 1293,
+                                        "ground": "Selangor Turf Club",
+                                        "city": "Kuala Lumpur",
+                                        "timezone": "+08:00",
+                                        "latitude": "3.0446268",
+                                        "longitude": "101.3394008"
+                                    },
+                                    "seriesStartDt": "1791158400000",
+                                    "seriesEndDt": "1792108800000",
+                                    "isTimeAnnounced": true,
+                                    "stateTitle": "Preview",
+                                    "hideScoreStatus": "Match starts at Oct 09, 01:15 GMT"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "ad": {
+                        "name": "native_matches",
+                        "layout": "native_large",
+                        "position": 3
+                    }
+                },
+                {
+                    "seriesAdWrapper": {
+                        "seriesId": 13257,
+                        "seriesName": "ICC Men's T20 World Cup Asia Sub Regional Qualifier B 2026",
+                        "matches": [
+                            {
+                                "matchInfo": {
+                                    "matchId": 173871,
+                                    "seriesId": 13257,
+                                    "seriesName": "ICC Men's T20 World Cup Asia Sub Regional Qualifier B 2026",
+                                    "matchDesc": "4th Match",
+                                    "matchFormat": "T20",
+                                    "startDate": "1791525600000",
+                                    "endDate": "1791538200000",
+                                    "state": "Preview",
+                                    "status": "Match starts at Oct 09, 06:00 GMT",
+                                    "team1": {
+                                        "teamId": 71,
+                                        "teamName": "Malaysia",
+                                        "teamSName": "MLY",
+                                        "imageId": 776319
+                                    },
+                                    "team2": {
+                                        "teamId": 571,
+                                        "teamName": "Saudi Arabia",
+                                        "teamSName": "SAU",
+                                        "imageId": 172623
+                                    },
+                                    "venueInfo": {
+                                        "id": 394,
+                                        "ground": "Bayuemas Oval",
+                                        "city": "Kuala Lumpur",
+                                        "timezone": "+08:00",
+                                        "latitude": "2.819586",
+                                        "longitude": "101.5199"
+                                    },
+                                    "seriesStartDt": "1791417600000",
+                                    "seriesEndDt": "1792108800000",
+                                    "isTimeAnnounced": true,
+                                    "stateTitle": "Preview",
+                                    "hideScoreStatus": "Match starts at Oct 09, 06:00 GMT"
+                                }
+                            },
+                            {
+                                "matchInfo": {
+                                    "matchId": 173873,
+                                    "seriesId": 13257,
+                                    "seriesName": "ICC Men's T20 World Cup Asia Sub Regional Qualifier B 2026",
+                                    "matchDesc": "5th Match",
+                                    "matchFormat": "T20",
+                                    "startDate": "1791525600000",
+                                    "endDate": "1791538200000",
+                                    "state": "Preview",
+                                    "status": "Match starts at Oct 09, 06:00 GMT",
+                                    "team1": {
+                                        "teamId": 524,
+                                        "teamName": "China",
+                                        "teamSName": "CHN",
+                                        "imageId": 172574
+                                    },
+                                    "team2": {
+                                        "teamId": 8,
+                                        "teamName": "Hong Kong, China",
+                                        "teamSName": "HKC",
+                                        "imageId": 776271
+                                    },
+                                    "venueInfo": {
+                                        "id": 1853,
+                                        "ground": "YSD-UKM Cricket Oval",
+                                        "city": "Bangi",
+                                        "timezone": "+08:00",
+                                        "latitude": "2.9348189",
+                                        "longitude": "101.7823779"
+                                    },
+                                    "seriesStartDt": "1791417600000",
+                                    "seriesEndDt": "1792108800000",
+                                    "isTimeAnnounced": true,
+                                    "stateTitle": "Preview",
+                                    "hideScoreStatus": "Match starts at Oct 09, 06:00 GMT"
+                                }
+                            },
+                            {
+                                "matchInfo": {
+                                    "matchId": 173883,
+                                    "seriesId": 13257,
+                                    "seriesName": "ICC Men's T20 World Cup Asia Sub Regional Qualifier B 2026",
+                                    "matchDesc": "6th Match",
+                                    "matchFormat": "T20",
+                                    "startDate": "1791525600000",
+                                    "endDate": "1791538200000",
+                                    "state": "Preview",
+                                    "status": "Match starts at Oct 09, 06:00 GMT",
+                                    "team1": {
+                                        "teamId": 563,
+                                        "teamName": "Maldives",
+                                        "teamSName": "MDV",
+                                        "imageId": 172615
+                                    },
+                                    "team2": {
+                                        "teamId": 190,
+                                        "teamName": "Singapore",
+                                        "teamSName": "SIN",
+                                        "imageId": 776275
+                                    },
+                                    "venueInfo": {
+                                        "id": 1293,
+                                        "ground": "Selangor Turf Club",
+                                        "city": "Kuala Lumpur",
+                                        "timezone": "+08:00",
+                                        "latitude": "3.0446268",
+                                        "longitude": "101.3394008"
+                                    },
+                                    "seriesStartDt": "1791417600000",
+                                    "seriesEndDt": "1792108800000",
+                                    "isTimeAnnounced": true,
+                                    "stateTitle": "Preview",
+                                    "hideScoreStatus": "Match starts at Oct 09, 06:00 GMT"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "seriesAdWrapper": {
+                        "seriesId": 7572,
+                        "seriesName": "ICC Cricket World Cup League Two 2023-27",
+                        "matches": [
+                            {
+                                "matchInfo": {
+                                    "matchId": 169910,
+                                    "seriesId": 7572,
+                                    "seriesName": "ICC Cricket World Cup League Two 2023-27",
+                                    "matchDesc": "131st Match",
+                                    "matchFormat": "ODI",
+                                    "startDate": "1791525600000",
+                                    "endDate": "1791554400000",
+                                    "state": "Preview",
+                                    "status": "Match starts at Oct 09, 06:00 GMT",
+                                    "team1": {
+                                        "teamId": 304,
+                                        "teamName": "Oman",
+                                        "teamSName": "OMAN",
+                                        "imageId": 776328
+                                    },
+                                    "team2": {
+                                        "teamId": 26,
+                                        "teamName": "Canada",
+                                        "teamSName": "CAN",
+                                        "imageId": 776227
+                                    },
+                                    "venueInfo": {
+                                        "id": 549,
+                                        "ground": "Al Amerat Cricket Ground (Ministry Turf 1)",
+                                        "city": "Al Amerat",
+                                        "timezone": "+04:00",
+                                        "latitude": "23.483316",
+                                        "longitude": "58.4589062"
+                                    },
+                                    "seriesStartDt": "1707955200000",
+                                    "seriesEndDt": "1830211200000",
+                                    "isTimeAnnounced": true,
+                                    "stateTitle": "Preview",
+                                    "hideScoreStatus": "Match starts at Oct 09, 06:00 GMT"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "matchType": "League",
+            "seriesMatches": [
+                {
+                    "seriesAdWrapper": {
+                        "seriesId": 13180,
+                        "seriesName": "CSA T20 Challenge 2026",
+                        "matches": [
+                            {
+                                "matchInfo": {
+                                    "matchId": 173277,
+                                    "seriesId": 13180,
+                                    "seriesName": "CSA T20 Challenge 2026",
+                                    "matchDesc": "Pool B",
+                                    "matchFormat": "T20",
+                                    "startDate": "1791475200000",
+                                    "endDate": "1791487800000",
+                                    "state": "Preview",
+                                    "status": "Match starts at Oct 08, 16:00 GMT",
+                                    "team1": {
+                                        "teamId": 1759,
+                                        "teamName": "Boland",
+                                        "teamSName": "BOL",
+                                        "imageId": 349610
+                                    },
+                                    "team2": {
+                                        "teamId": 933,
+                                        "teamName": "Eastern Storm",
+                                        "teamSName": "ESTORM",
+                                        "imageId": 248407
+                                    },
+                                    "venueInfo": {
+                                        "id": 207,
+                                        "ground": "Boland Park",
+                                        "city": "Paarl",
+                                        "timezone": "+02:00",
+                                        "latitude": "-33.730900",
+                                        "longitude": "18.970760"
+                                    },
+                                    "seriesStartDt": "1790294400000",
+                                    "seriesEndDt": "1794787200000",
+                                    "isTimeAnnounced": true,
+                                    "stateTitle": "Preview",
+                                    "hideScoreStatus": "Match starts at Oct 08, 16:00 GMT"
+                                }
+                            },
+                            {
+                                "matchInfo": {
+                                    "matchId": 173297,
+                                    "seriesId": 13180,
+                                    "seriesName": "CSA T20 Challenge 2026",
+                                    "matchDesc": "Pool A",
+                                    "matchFormat": "T20",
+                                    "startDate": "1791475200000",
+                                    "endDate": "1791487800000",
+                                    "state": "Preview",
+                                    "status": "Match starts at Oct 08, 16:00 GMT",
+                                    "team1": {
+                                        "teamId": 155,
+                                        "teamName": "Warriors",
+                                        "teamSName": "WAR",
+                                        "imageId": 172222
+                                    },
+                                    "team2": {
+                                        "teamId": 923,
+                                        "teamName": "Northern Cape",
+                                        "teamSName": "NCAPE",
+                                        "imageId": 248438
+                                    },
+                                    "venueInfo": {
+                                        "id": 73,
+                                        "ground": "St George's Park",
+                                        "city": "Gqeberha",
+                                        "timezone": "+02:00",
+                                        "latitude": "-33.966545",
+                                        "longitude": "25.610332"
+                                    },
+                                    "seriesStartDt": "1790294400000",
+                                    "seriesEndDt": "1794787200000",
+                                    "isTimeAnnounced": true,
+                                    "stateTitle": "Preview",
+                                    "hideScoreStatus": "Match starts at Oct 08, 16:00 GMT"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "matchType": "Domestic",
+            "seriesMatches": [
+                {
+                    "seriesAdWrapper": {
+                        "seriesId": 12184,
+                        "seriesName": "Australia A tour of India 2026",
+                        "matches": [
+                            {
+                                "matchInfo": {
+                                    "matchId": 155444,
+                                    "seriesId": 12184,
+                                    "seriesName": "Australia A tour of India 2026",
+                                    "matchDesc": "2nd unofficial ODI",
+                                    "matchFormat": "ODI",
+                                    "startDate": "1791516600000",
+                                    "endDate": "1791545400000",
+                                    "state": "Preview",
+                                    "status": "Match starts at Oct 09, 03:30 GMT",
+                                    "team1": {
+                                        "teamId": 78,
+                                        "teamName": "India A",
+                                        "teamSName": "INDA",
+                                        "imageId": 776181
+                                    },
+                                    "team2": {
+                                        "teamId": 79,
+                                        "teamName": "Australia A",
+                                        "teamSName": "AUSA",
+                                        "imageId": 776204
+                                    },
+                                    "venueInfo": {
+                                        "id": 543,
+                                        "ground": "Cricket Association Puducherry Siechem Ground",
+                                        "city": "Puducherry",
+                                        "timezone": "+05:30",
+                                        "latitude": "11.912200",
+                                        "longitude": "79.737396"
+                                    },
+                                    "seriesStartDt": "1790035200000",
+                                    "seriesEndDt": "1791849600000",
+                                    "isTimeAnnounced": true,
+                                    "stateTitle": "Preview",
+                                    "hideScoreStatus": "Match starts at Oct 09, 03:30 GMT"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "matchType": "Women",
+            "seriesMatches": [
+                {
+                    "seriesAdWrapper": {
+                        "seriesId": 11898,
+                        "seriesName": "Bangladesh Women tour of Australia, 2026",
+                        "matches": [
+                            {
+                                "matchInfo": {
+                                    "matchId": 151389,
+                                    "seriesId": 11898,
+                                    "seriesName": "Bangladesh Women tour of Australia, 2026",
+                                    "matchDesc": "1st ODI",
+                                    "matchFormat": "ODI",
+                                    "startDate": "1791517800000",
+                                    "endDate": "1791546600000",
+                                    "state": "Preview",
+                                    "status": "Match starts at Oct 09, 03:50 GMT",
+                                    "team1": {
+                                        "teamId": 100,
+                                        "teamName": "Australia Women",
+                                        "teamSName": "AUSW",
+                                        "imageId": 776205
+                                    },
+                                    "team2": {
+                                        "teamId": 329,
+                                        "teamName": "Bangladesh Women",
+                                        "teamSName": "BANW",
+                                        "imageId": 776213
+                                    },
+                                    "venueInfo": {
+                                        "id": 300,
+                                        "ground": "Allan Border Field",
+                                        "city": "Brisbane",
+                                        "timezone": "+10:00",
+                                        "latitude": "-27.435145",
+                                        "longitude": "153.046143"
+                                    },
+                                    "seriesStartDt": "1791504000000",
+                                    "seriesEndDt": "1792108800000",
+                                    "isTimeAnnounced": true,
+                                    "stateTitle": "Preview",
+                                    "hideScoreStatus": "Match starts at Oct 09, 03:50 GMT"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ],
+    "filters": {
+        "matchType": [
+            "International",
+            "League",
+            "Domestic",
+            "Women"
+        ]
+    },
+    "appIndex": {
+        "seoTitle": "Live Cricket Score - Scorecard and Match Results",
+        "webURL": "www.cricbuzz.com/live-cricket-scores/"
+    },
+    "responseLastUpdated": "1791453995"
+}

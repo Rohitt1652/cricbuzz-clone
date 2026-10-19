@@ -1,0 +1,638 @@
+{
+    "international": {
+        "seriesMapProto": [
+            {
+                "date": "FEBRUARY 2024",
+                "series": [
+                    {
+                        "id": 7572,
+                        "name": "ICC Cricket World Cup League Two 2023-27",
+                        "startDt": "1707955200000",
+                        "endDt": "1830038400000"
+                    }
+                ]
+            },
+            {
+                "date": "SEPTEMBER 2026",
+                "series": [
+                    {
+                        "id": 11595,
+                        "name": "Australia tour of South Africa, 2026",
+                        "startDt": "1790208000000",
+                        "endDt": "1793404800000"
+                    },
+                    {
+                        "id": 11902,
+                        "name": "West Indies tour of India, 2026",
+                        "startDt": "1790467200000",
+                        "endDt": "1792195200000"
+                    }
+                ]
+            },
+            {
+                "date": "OCTOBER 2026",
+                "series": [
+                    {
+                        "id": 13253,
+                        "name": "ICC Men's T20 World Cup Asia Sub Regional Qualifier A 2026",
+                        "startDt": "1791158400000",
+                        "endDt": "1791936000000"
+                    },
+                    {
+                        "id": 13257,
+                        "name": "ICC Men's T20 World Cup Asia Sub Regional Qualifier B 2026",
+                        "startDt": "1791417600000",
+                        "endDt": "1791936000000"
+                    },
+                    {
+                        "id": 13187,
+                        "name": "Afghanistan vs Bangladesh in UAE, 2026",
+                        "startDt": "1791504000000",
+                        "endDt": "1791849600000"
+                    },
+                    {
+                        "id": 13037,
+                        "name": "Sri Lanka tour of Pakistan, 2026",
+                        "startDt": "1791504000000",
+                        "endDt": "1795219200000"
+                    },
+                    {
+                        "id": 13197,
+                        "name": "ODI Tri-Nation Series in UAE, 2026",
+                        "startDt": "1792195200000",
+                        "endDt": "1792713600000"
+                    },
+                    {
+                        "id": 13047,
+                        "name": "Pakistan ODI Tri-Series, 2026",
+                        "startDt": "1792281600000",
+                        "endDt": "1793404800000"
+                    },
+                    {
+                        "id": 13267,
+                        "name": "ICC Men's T20 World Cup Africa Sub Regional Qualifier C 2026",
+                        "startDt": "1792454400000",
+                        "endDt": "1792886400000"
+                    },
+                    {
+                        "id": 12543,
+                        "name": "India tour of New Zealand 2026",
+                        "startDt": "1792627200000",
+                        "endDt": "1796083200000"
+                    },
+                    {
+                        "id": 13313,
+                        "name": "Ireland tour of Namibia, 2026",
+                        "startDt": "1792627200000",
+                        "endDt": "1793491200000"
+                    },
+                    {
+                        "id": 13211,
+                        "name": "West Indies tour of Bangladesh, 2026",
+                        "startDt": "1792627200000",
+                        "endDt": "1793491200000"
+                    },
+                    {
+                        "id": 13201,
+                        "name": "Afghanistan vs Zimbabwe in UAE, 2026",
+                        "startDt": "1793059200000",
+                        "endDt": "1794873600000"
+                    }
+                ]
+            },
+            {
+                "date": "NOVEMBER 2026",
+                "series": [
+                    {
+                        "id": 11876,
+                        "name": "England tour of Australia, 2026",
+                        "startDt": "1794528000000",
+                        "endDt": "1796169600000"
+                    },
+                    {
+                        "id": 11606,
+                        "name": "Bangladesh tour of South Africa, 2026",
+                        "startDt": "1794700800000",
+                        "endDt": "1797120000000"
+                    }
+                ]
+            },
+            {
+                "date": "DECEMBER 2026",
+                "series": [
+                    {
+                        "id": 11858,
+                        "name": "New Zealand tour of Australia, 2026-27",
+                        "startDt": "1796774400000",
+                        "endDt": "1799366400000"
+                    },
+                    {
+                        "id": 11913,
+                        "name": "Sri Lanka tour of India, 2026",
+                        "startDt": "1797120000000",
+                        "endDt": "1798329600000"
+                    },
+                    {
+                        "id": 11612,
+                        "name": "England tour of South Africa, 2026-27",
+                        "startDt": "1797465600000",
+                        "endDt": "1799971200000"
+                    }
+                ]
+            },
+            {
+                "date": "JANUARY 2027",
+                "series": [
+                    {
+                        "id": 11924,
+                        "name": "Zimbabwe tour of India, 2027",
+                        "startDt": "1798934400000",
+                        "endDt": "1799452800000"
+                    },
+                    {
+                        "id": 12547,
+                        "name": "Sri Lanka tour of New Zealand 2027",
+                        "startDt": "1800057600000",
+                        "endDt": "1802736000000"
+                    },
+                    {
+                        "id": 11935,
+                        "name": "Australia tour of India, 2027",
+                        "startDt": "1800489600000",
+                        "endDt": "1804032000000"
+                    }
+                ]
+            },
+            {
+                "date": "MARCH 2027",
+                "series": [
+                    {
+                        "id": 11883,
+                        "name": "Australia vs England, 150th Anniversary One-off Test Match, 2027",
+                        "startDt": "1804723200000",
+                        "endDt": "1805068800000"
+                    },
+                    {
+                        "id": 13213,
+                        "name": "Bangladesh tour of Nepal, 2027",
+                        "startDt": "1806019200000",
+                        "endDt": "1806364800000"
+                    }
+                ]
+            },
+            {
+                "date": "MAY 2027",
+                "series": [
+                    {
+                        "id": 12797,
+                        "name": "Pakistan tour of England 2027",
+                        "startDt": "1810339200000",
+                        "endDt": "1811289600000"
+                    },
+                    {
+                        "id": 12811,
+                        "name": "Bangladesh tour of England 2027",
+                        "startDt": "1811462400000",
+                        "endDt": "1811808000000"
+                    }
+                ]
+            },
+            {
+                "date": "JUNE 2027",
+                "series": [
+                    {
+                        "id": 12807,
+                        "name": "The Ashes 2027",
+                        "startDt": "1812326400000",
+                        "endDt": "1817164800000"
+                    },
+                    {
+                        "id": 12801,
+                        "name": "ICC World Test Championship Final 2027",
+                        "startDt": "1812499200000",
+                        "endDt": "1812844800000"
+                    }
+                ]
+            },
+            {
+                "date": "SEPTEMBER 2027",
+                "series": [
+                    {
+                        "id": 12837,
+                        "name": "New Zealand tour of England 2027",
+                        "startDt": "1820275200000",
+                        "endDt": "1821830400000"
+                    }
+                ]
+            },
+            {
+                "date": "OCTOBER 2027",
+                "series": [
+                    {
+                        "id": 13289,
+                        "name": "ICC Men's Cricket World Cup 2027",
+                        "startDt": "1822435200000",
+                        "endDt": "1826755200000"
+                    }
+                ]
+            }
+        ],
+        "appIndex": {
+            "seoTitle": "Current Running Cricket Series - Cricbuzz | Cricbuzz.com",
+            "webURL": "www.cricbuzz.com\/cricket-series\/"
+        }
+    },
+    "league": {
+        "seriesMapProto": [
+            {
+                "date": "SEPTEMBER 2026",
+                "series": [
+                    {
+                        "id": 13180,
+                        "name": "CSA T20 Challenge 2026",
+                        "startDt": "1790294400000",
+                        "endDt": "1794614400000"
+                    }
+                ]
+            },
+            {
+                "date": "OCTOBER 2026",
+                "series": [
+                    {
+                        "id": 13300,
+                        "name": "World Championship of Legends 2026",
+                        "startDt": "1790985600000",
+                        "endDt": "1792281600000"
+                    },
+                    {
+                        "id": 13323,
+                        "name": "Hong Kong Sixes 2026",
+                        "startDt": "1793318400000",
+                        "endDt": "1793491200000"
+                    }
+                ]
+            },
+            {
+                "date": "NOVEMBER 2026",
+                "series": [
+                    {
+                        "id": 13307,
+                        "name": "Abu Dhabi T10 League 2026",
+                        "startDt": "1794009600000",
+                        "endDt": "1795132800000"
+                    },
+                    {
+                        "id": 12037,
+                        "name": "International League T20 2026",
+                        "startDt": "1795219200000",
+                        "endDt": "1797724800000"
+                    }
+                ]
+            },
+            {
+                "date": "DECEMBER 2026",
+                "series": [
+                    {
+                        "id": 12731,
+                        "name": "Big Bash League 2026-27",
+                        "startDt": "1797033600000",
+                        "endDt": "1800921600000"
+                    },
+                    {
+                        "id": 13347,
+                        "name": "Super Smash 2026-27",
+                        "startDt": "1798329600000",
+                        "endDt": "1801267200000"
+                    }
+                ]
+            },
+            {
+                "date": "JANUARY 2027",
+                "series": [
+                    {
+                        "id": 12791,
+                        "name": "SA20, 2027",
+                        "startDt": "1800144000000",
+                        "endDt": "1803168000000"
+                    }
+                ]
+            },
+            {
+                "date": "MARCH 2027",
+                "series": [
+                    {
+                        "id": 9249,
+                        "name": "Indian Premier League 2027",
+                        "startDt": "1804636800000",
+                        "endDt": "1810339200000"
+                    }
+                ]
+            }
+        ],
+        "appIndex": {
+            "seoTitle": "Current Running Cricket Series - Cricbuzz | Cricbuzz.com",
+            "webURL": "www.cricbuzz.com\/cricket-series\/"
+        }
+    },
+    "domestic": {
+        "seriesMapProto": [
+            {
+                "date": "SEPTEMBER 2024",
+                "series": [
+                    {
+                        "id": 8993,
+                        "name": "ICC CWC Challenge League A, 2024-26",
+                        "startDt": "1727222400000",
+                        "endDt": "1798588800000"
+                    }
+                ]
+            },
+            {
+                "date": "NOVEMBER 2024",
+                "series": [
+                    {
+                        "id": 9001,
+                        "name": "ICC CWC Challenge League B, 2024-26",
+                        "startDt": "1730851200000",
+                        "endDt": "1798588800000"
+                    }
+                ]
+            },
+            {
+                "date": "SEPTEMBER 2026",
+                "series": [
+                    {
+                        "id": 13140,
+                        "name": "CSA Four-Day Series Division One 2026-27",
+                        "startDt": "1788998400000",
+                        "endDt": "1809043200000"
+                    },
+                    {
+                        "id": 13150,
+                        "name": "CSA Three-Day Series Division Two 2026-27",
+                        "startDt": "1788998400000",
+                        "endDt": "1807401600000"
+                    },
+                    {
+                        "id": 13160,
+                        "name": "CSA Provincial One-Day Challenge Division Two 2026-27",
+                        "startDt": "1789257600000",
+                        "endDt": "1806192000000"
+                    },
+                    {
+                        "id": 12723,
+                        "name": "Australia Domestic One-Day Cup 2026-27",
+                        "startDt": "1789689600000",
+                        "endDt": "1802563200000"
+                    }
+                ]
+            },
+            {
+                "date": "OCTOBER 2026",
+                "series": [
+                    {
+                        "id": 12717,
+                        "name": "Sheffield Shield 2026-27",
+                        "startDt": "1791331200000",
+                        "endDt": "1806278400000"
+                    },
+                    {
+                        "id": 12398,
+                        "name": "Ranji Trophy Elite 2026-27",
+                        "startDt": "1791676800000",
+                        "endDt": "1803945600000"
+                    },
+                    {
+                        "id": 12409,
+                        "name": "Ranji Trophy Plate 2026-27",
+                        "startDt": "1791676800000",
+                        "endDt": "1801094400000"
+                    },
+                    {
+                        "id": 13091,
+                        "name": "India A tour of New Zealand, 2026",
+                        "startDt": "1792800000000",
+                        "endDt": "1794268800000"
+                    },
+                    {
+                        "id": 13020,
+                        "name": "The Ford Trophy 2026-27",
+                        "startDt": "1793145600000",
+                        "endDt": "1803168000000"
+                    }
+                ]
+            },
+            {
+                "date": "NOVEMBER 2026",
+                "series": [
+                    {
+                        "id": 13333,
+                        "name": "ACC Men's U19 Asia Cup 2026",
+                        "startDt": "1793836800000",
+                        "endDt": "1794614400000"
+                    },
+                    {
+                        "id": 13337,
+                        "name": "Ireland A tour of Zimbabwe, 2026",
+                        "startDt": "1793923200000",
+                        "endDt": "1795824000000"
+                    },
+                    {
+                        "id": 12420,
+                        "name": "Syed Mushtaq Ali Trophy Elite 2026",
+                        "startDt": "1794614400000",
+                        "endDt": "1796515200000"
+                    },
+                    {
+                        "id": 12431,
+                        "name": "Syed Mushtaq Ali Trophy Plate 2026",
+                        "startDt": "1794614400000",
+                        "endDt": "1795478400000"
+                    },
+                    {
+                        "id": 13097,
+                        "name": "Plunket Shield 2026-27",
+                        "startDt": "1795046400000",
+                        "endDt": "1806278400000"
+                    }
+                ]
+            },
+            {
+                "date": "DECEMBER 2026",
+                "series": [
+                    {
+                        "id": 12923,
+                        "name": "India A tour of Nepal, 2026",
+                        "startDt": "1796774400000",
+                        "endDt": "1797120000000"
+                    },
+                    {
+                        "id": 12444,
+                        "name": "Vijay Hazare Trophy Plate 2026",
+                        "startDt": "1797206400000",
+                        "endDt": "1798329600000"
+                    },
+                    {
+                        "id": 12442,
+                        "name": "Vijay Hazare Trophy Elite 2026-27",
+                        "startDt": "1797206400000",
+                        "endDt": "1799366400000"
+                    }
+                ]
+            },
+            {
+                "date": "FEBRUARY 2027",
+                "series": [
+                    {
+                        "id": 13170,
+                        "name": "CSA Provincial One-Day Challenge Division One 2027",
+                        "startDt": "1803686400000",
+                        "endDt": "1806192000000"
+                    }
+                ]
+            }
+        ],
+        "appIndex": {
+            "seoTitle": "Current Running Cricket Series - Cricbuzz | Cricbuzz.com",
+            "webURL": "www.cricbuzz.com\/cricket-series\/"
+        }
+    },
+    "women": {
+        "seriesMapProto": [
+            {
+                "date": "OCTOBER 2026",
+                "series": [
+                    {
+                        "id": 11898,
+                        "name": "Bangladesh Women tour of Australia, 2026",
+                        "startDt": "1791504000000",
+                        "endDt": "1791936000000"
+                    },
+                    {
+                        "id": 12747,
+                        "name": "T20 Spring Challenge 2026",
+                        "startDt": "1791676800000",
+                        "endDt": "1792540800000"
+                    },
+                    {
+                        "id": 12200,
+                        "name": "Zimbabwe Women tour of India, 2026",
+                        "startDt": "1792108800000",
+                        "endDt": "1793145600000"
+                    },
+                    {
+                        "id": 11859,
+                        "name": "New Zealand Women tour of Australia, 2026",
+                        "startDt": "1792281600000",
+                        "endDt": "1792627200000"
+                    },
+                    {
+                        "id": 12677,
+                        "name": "Womens Big Bash League 2026",
+                        "startDt": "1793232000000",
+                        "endDt": "1796428800000"
+                    }
+                ]
+            },
+            {
+                "date": "NOVEMBER 2026",
+                "series": [
+                    {
+                        "id": 12232,
+                        "name": "England Women U19 tour of India 2026",
+                        "startDt": "1795651200000",
+                        "endDt": "1796515200000"
+                    },
+                    {
+                        "id": 12221,
+                        "name": "England A Women tour of India 2026",
+                        "startDt": "1795996800000",
+                        "endDt": "1797897600000"
+                    }
+                ]
+            },
+            {
+                "date": "DECEMBER 2026",
+                "series": [
+                    {
+                        "id": 11784,
+                        "name": "India Women tour of South Africa, 2026",
+                        "startDt": "1796774400000",
+                        "endDt": "1798588800000"
+                    },
+                    {
+                        "id": 12552,
+                        "name": "Bangladesh Women tour of New Zealand 2026",
+                        "startDt": "1796860800000",
+                        "endDt": "1797984000000"
+                    }
+                ]
+            },
+            {
+                "date": "JANUARY 2027",
+                "series": [
+                    {
+                        "id": 13223,
+                        "name": "Women's Premier League 2027",
+                        "startDt": "1799884800000",
+                        "endDt": "1801958400000"
+                    }
+                ]
+            },
+            {
+                "date": "FEBRUARY 2027",
+                "series": [
+                    {
+                        "id": 13100,
+                        "name": "ICC Women\u2019s Champions Trophy 2027",
+                        "startDt": "1802649600000",
+                        "endDt": "1803772800000"
+                    }
+                ]
+            },
+            {
+                "date": "MARCH 2027",
+                "series": [
+                    {
+                        "id": 12701,
+                        "name": "New Zealand Women tour of Australia, 2027",
+                        "startDt": "1804291200000",
+                        "endDt": "1804723200000"
+                    },
+                    {
+                        "id": 11792,
+                        "name": "Australia Women tour of South Africa, 2027",
+                        "startDt": "1805328000000",
+                        "endDt": "1807401600000"
+                    }
+                ]
+            },
+            {
+                "date": "JUNE 2027",
+                "series": [
+                    {
+                        "id": 12823,
+                        "name": "Womens Ashes, 2027",
+                        "startDt": "1813795200000",
+                        "endDt": "1816041600000"
+                    }
+                ]
+            },
+            {
+                "date": "SEPTEMBER 2027",
+                "series": [
+                    {
+                        "id": 12843,
+                        "name": "Bangladesh Women tour of England, 2027",
+                        "startDt": "1820361600000",
+                        "endDt": "1821744000000"
+                    }
+                ]
+            }
+        ],
+        "appIndex": {
+            "seoTitle": "Current Running Cricket Series - Cricbuzz | Cricbuzz.com",
+            "webURL": "www.cricbuzz.com\/cricket-series\/"
+        }
+    }
+}

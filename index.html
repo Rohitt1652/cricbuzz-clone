@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cricbuzz Live Cricket Match Scorecard</title>
+  <meta name="description" content="Live Cricket Match Scorecard - Full Batting, Bowling, Extras, Powerplay & Partnership breakdown">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Top Bar / App Header -->
+    <header class="app-header">
+      <div class="brand-section">
+        <div class="brand-icon">
+          <i class="fa-solid fa-trophy"></i>
+        </div>
+        <div>
+          <h1 class="brand-title">CRICBUZZ SCORECARD</h1>
+          <div class="brand-subtitle" id="matchSubTitle">T20 INTERNATIONAL SCORECARD</div>
+        </div>
+      </div>
+      
+      <div class="header-controls">
+        <button class="btn" id="btnUploadModal" title="Upload Custom JSON">
+          <i class="fa-solid fa-file-import"></i> <span>Load JSON</span>
+        </button>
+        <button class="btn" id="btnRawJsonModal" title="View Raw JSON">
+          <i class="fa-solid fa-code"></i> <span>Raw JSON</span>
+        </button>
+        <button class="btn" id="btnPrint" title="Print Scorecard">
+          <i class="fa-solid fa-print"></i> <span>Print</span>
+        </button>
+        <button class="btn btn-icon-only" id="btnThemeToggle" title="Toggle Theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Match Hero / Result Banner -->
+    <section class="match-hero">
+      <div class="match-meta-bar">
+        <div class="series-title" id="seriesTitle">
+          <i class="fa-solid fa-location-dot"></i> <span>Ireland tour of USA, 2021 • 2nd T20I</span>
+        </div>
+        <div class="status-badge" id="matchStatusBadge">
+          <i class="fa-solid fa-circle-check"></i> <span id="matchStatusText">Ireland won by 9 runs</span>
+        </div>
+      </div>
+
+      <div class="match-teams-grid">
+        <!-- Team 1 (Ireland) -->
+        <div class="team-card winner" id="teamCard1">
+          <div class="team-flag flag-ire" id="flagTeam1">IRE</div>
+          <div class="team-details">
+            <div class="team-name-row">
+              <span class="team-fullname" id="team1Name">Ireland</span>
+              <i class="fa-solid fa-crown winner-crown" title="Winner"></i>
+            </div>
+            <div class="team-score-display">
+              <span class="score-main" id="team1Score">150/10</span>
+              <span class="score-overs" id="team1Overs">(18.5 Ov)</span>
+              <span class="score-rr" id="team1RR">RR: 7.96</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- VS Divider -->
+        <div class="vs-divider">
+          <div class="vs-badge">VS</div>
+        </div>
+
+        <!-- Team 2 (United States) -->
+        <div class="team-card" id="teamCard2">
+          <div class="team-flag flag-usa" id="flagTeam2">USA</div>
+          <div class="team-details">
+            <div class="team-name-row">
+              <span class="team-fullname" id="team2Name">United States</span>
+            </div>
+            <div class="team-score-display">
+              <span class="score-main" id="team2Score">141/7</span>
+              <span class="score-overs" id="team2Overs">(20.0 Ov)</span>
+              <span class="score-rr" id="team2RR">RR: 7.05</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Stats Highlights Strip -->
+      <div class="match-highlights-strip">
+        <div class="highlight-pill">
+          <div class="highlight-icon icon-amber">
+            <i class="fa-solid fa-award"></i>
+          </div>
+          <div class="highlight-text">
+            <label>Top Scorer</label>
+            <span id="topScorerHighlight">Lorcan Tucker (84 off 56)</span>
+          </div>
+        </div>
+
+        <div class="highlight-pill">
+          <div class="highlight-icon icon-blue">
+            <i class="fa-solid fa-bowling-ball"></i>
+          </div>
+          <div class="highlight-text">
+            <label>Best Bowling Spell</label>
+            <span id="bestBowlerHighlight">S. Netravalkar (3/33)</span>
+          </div>
+        </div>
+
+        <div class="highlight-pill">
+          <div class="highlight-icon icon-purple">
+            <i class="fa-solid fa-chart-simple"></i>
+          </div>
+          <div class="highlight-text">
+            <label>Match Boundaries</label>
+            <span id="matchBoundariesHighlight">19 Fours, 8 Sixes</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs-navigation">
+      <button class="nav-tab active" data-tab="tab-innings-1" id="tabBtnInnings1" onclick="switchTab('tab-innings-1')">
+        <i class="fa-solid fa-cricket-bat-ball"></i> <span id="tabTitle1">IRE 1st Innings</span>
+        <span class="tab-badge" id="tabBadge1">150/10</span>
+      </button>
+      <button class="nav-tab" data-tab="tab-innings-2" id="tabBtnInnings2" onclick="switchTab('tab-innings-2')">
+        <i class="fa-solid fa-cricket-bat-ball"></i> <span id="tabTitle2">USA 2nd Innings</span>
+        <span class="tab-badge" id="tabBadge2">141/7</span>
+      </button>
+      <button class="nav-tab" data-tab="tab-analytics" onclick="switchTab('tab-analytics')">
+        <i class="fa-solid fa-chart-line"></i> <span>Match Analytics</span>
+      </button>
+      <button class="nav-tab" data-tab="tab-upcoming" id="tabBtnUpcoming" onclick="switchTab('tab-upcoming')">
+        <i class="fa-solid fa-calendar-days"></i> <span>Upcoming Matches</span>
+        <span class="tab-badge tab-badge-upcoming" id="tabBadgeUpcoming">0</span>
+      </button>
+      <button class="nav-tab" data-tab="tab-series" id="tabBtnSeries" onclick="switchTab('tab-series')">
+        <i class="fa-solid fa-trophy"></i> <span>Tournaments & Series</span>
+        <span class="tab-badge tab-badge-series" id="tabBadgeSeries">0</span>
+      </button>
+    </nav>
+
+    <!-- TAB 1: INNINGS 1 SCORECARD -->
+    <main class="scorecard-view active" id="tab-innings-1">
+      
+      <!-- Batting Table Card -->
+      <div class="table-card">
+        <div class="card-title-row">
+          <div class="card-title">
+            <i class="fa-solid fa-shirt"></i> <span id="batTeam1Header">Ireland Batting</span>
+          </div>
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="player-search" data-target="batting-table-1" placeholder="Filter batter...">
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table" id="batting-table-1">
+            <thead>
+              <tr>
+                <th>Batter</th>
+                <th>Dismissal</th>
+                <th style="text-align: right;">R</th>
+                <th style="text-align: right;">B</th>
+                <th style="text-align: right;">4s</th>
+                <th style="text-align: right;">6s</th>
+                <th style="text-align: right;">SR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Batting rows injected dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Extras Row -->
+        <div class="extras-row" id="extras-row-1">
+          <div class="row-label">Extras</div>
+          <div class="extras-breakdown" id="extras-breakdown-1">
+            <!-- Extras details -->
+          </div>
+        </div>
+
+        <!-- Total Score Row -->
+        <div class="total-row" id="total-row-1">
+          <div class="row-label">Total Score</div>
+          <div class="total-val" id="total-val-1">150/10 (18.5 Overs, RR: 7.96)</div>
+        </div>
+      </div>
+
+      <!-- Bowling Table Card -->
+      <div class="table-card">
+        <div class="card-title-row">
+          <div class="card-title">
+            <i class="fa-solid fa-bowling-ball"></i> <span id="bowlTeam1Header">United States Bowling</span>
+          </div>
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="player-search" data-target="bowling-table-1" placeholder="Filter bowler...">
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table" id="bowling-table-1">
+            <thead>
+              <tr>
+                <th>Bowler</th>
+                <th style="text-align: right;">O</th>
+                <th style="text-align: right;">M</th>
+                <th style="text-align: right;">R</th>
+                <th style="text-align: right;">W</th>
+                <th style="text-align: right;">ECON</th>
+                <th style="text-align: right;">Dots</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Bowling rows injected dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Powerplay Breakdown -->
+      <div class="table-card">
+        <div class="card-title-row">
+          <div class="card-title">
+            <i class="fa-solid fa-bolt"></i> <span>Powerplay Details</span>
+          </div>
+        </div>
+        <div id="powerplay-container-1">
+          <!-- Powerplay cards -->
+        </div>
+      </div>
+
+      <!-- Fall of Wickets Card -->
+      <div class="table-card">
+        <div class="card-title-row">
+          <div class="card-title">
+            <i class="fa-solid fa-circle-exclamation"></i> <span>Fall of Wickets</span>
+          </div>
+        </div>
+        <div class="fow-grid" id="fow-grid-1">
+          <!-- FOW chips injected dynamically -->
+        </div>
+      </div>
+
+      <!-- Partnerships Card -->
+      <div class="table-card">
+        <div class="card-title-row">
+          <div class="card-title">
+            <i class="fa-solid fa-handshake"></i> <span>Partnerships Breakdown</span>
+          </div>
+        </div>
+        <div class="partnership-list" id="partnerships-1">
+          <!-- Partnerships injected dynamically -->
+        </div>
+      </div>
+
+    </main>
+
+    <!-- TAB 2: INNINGS 2 SCORECARD -->
+    <main class="scorecard-view" id="tab-innings-2">
+      
+      <!-- Batting Table Card -->
+      <div class="table-card">
+        <div class="card-title-row">
+          <div class="card-title">
+            <i class="fa-solid fa-shirt"></i> <span id="batTeam2Header">United States Batting</span>
+          </div>
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="player-search" data-target="batting-table-2" placeholder="Filter batter...">
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table" id="batting-table-2">
+            <thead>
+              <tr>
+                <th>Batter</th>
+                <th>Dismissal</th>
+                <th style="text-align: right;">R</th>
+                <th style="text-align: right;">B</th>
+                <th style="text-align: right;">4s</th>
+                <th style="text-align: right;">6s</th>
+                <th style="text-align: right;">SR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Batting rows injected dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Extras Row -->
+        <div class="extras-row" id="extras-row-2">
+          <div class="row-label">Extras</div>
+          <div class="extras-breakdown" id="extras-breakdown-2">
+            <!-- Extras details -->
+          </div>
+        </div>
+
+        <!-- Total Score Row -->
+        <div class="total-row" id="total-row-2">
+          <div class="row-label">Total Score</div>
+          <div class="total-val" id="total-val-2">141/7 (20.0 Overs, RR: 7.05)</div>
+        </div>
+      </div>
+
+      <!-- Bowling Table Card -->
+      <div class="table-card">
+        <div class="card-title-row">
+          <div class="card-title">
+            <i class="fa-solid fa-bowling-ball"></i> <span id="bowlTeam2Header">Ireland Bowling</span>
+          </div>
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="player-search" data-target="bowling-table-2" placeholder="Filter bowler...">
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table" id="bowling-table-2">
+            <thead>
+              <tr>
+                <th>Bowler</th>
+                <th style="text-align: right;">O</th>
+                <th style="text-align: right;">M</th>
+                <th style="text-align: right;">R</th>
+                <th style="text-align: right;">W</th>
+                <th style="text-align: right;">ECON</th>
+                <th style="text-align: right;">Dots</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Bowling rows injected dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Powerplay Breakdown -->
+      <div class="table-card">
+        <div class="card-title-row">
+          <div class="card-title">
+            <i class="fa-solid fa-bolt"></i> <span>Powerplay Details</span>
+          </div>
+        </div>
+        <div id="powerplay-container-2">
+          <!-- Powerplay cards -->
+        </div>
+      </div>
+
+      <!-- Fall of Wickets Card -->
+      <div class="table-card">
+        <div class="card-title-row">
+          <div class="card-title">
+            <i class="fa-solid fa-circle-exclamation"></i> <span>Fall of Wickets</span>
+          </div>
+        </div>
+        <div class="fow-grid" id="fow-grid-2">
+          <!-- FOW chips injected dynamically -->
+        </div>
+      </div>
+
+      <!-- Partnerships Card -->
+      <div class="table-card">
+        <div class="card-title-row">
+          <div class="card-title">
+            <i class="fa-solid fa-handshake"></i> <span>Partnerships Breakdown</span>
+          </div>
+        </div>
+        <div class="partnership-list" id="partnerships-2">
+          <!-- Partnerships injected dynamically -->
+        </div>
+      </div>
+
+    </main>
+
+    <!-- TAB 3: MATCH ANALYTICS & COMPARISON -->
+    <main class="scorecard-view" id="tab-analytics">
+      <div class="analytics-grid">
+        <!-- Boundary Comparison Chart -->
+        <div class="chart-card">
+          <div class="card-title-row">
+            <div class="card-title"><i class="fa-solid fa-chart-pie"></i> <span>Boundary Analysis (4s vs 6s)</span></div>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chartBoundaries"></canvas>
+          </div>
+        </div>
+
+        <!-- Run Rate Comparison Chart -->
+        <div class="chart-card">
+          <div class="card-title-row">
+            <div class="card-title"><i class="fa-solid fa-chart-column"></i> <span>Innings Comparison</span></div>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chartComparison"></canvas>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- TAB 4: UPCOMING MATCHES -->
+    <main class="scorecard-view" id="tab-upcoming">
+      <!-- Controls Header: Category Filter Pills + Format Filter + Search Input -->
+      <div class="upcoming-controls-card">
+        <div class="upcoming-header-row">
+          <div class="upcoming-title">
+            <i class="fa-solid fa-calendar-days"></i>
+            <div>
+              <h2>Upcoming Fixtures & Schedule</h2>
+              <p>Explore international, league, domestic, and women's upcoming matches</p>
+            </div>
+          </div>
+          
+          <!-- Search box -->
+          <div class="search-box upcoming-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="upcomingSearchInput" placeholder="Search team, series, venue...">
+          </div>
+        </div>
+
+        <div class="upcoming-filters-row">
+          <!-- Type Filter Pills -->
+          <div class="filter-pills" id="upcomingTypeFilters">
+            <button class="filter-pill active" data-type="all">All <span class="pill-count" id="countAll">0</span></button>
+            <button class="filter-pill" data-type="International">International <span class="pill-count" id="countInt">0</span></button>
+            <button class="filter-pill" data-type="League">League <span class="pill-count" id="countLeague">0</span></button>
+            <button class="filter-pill" data-type="Domestic">Domestic <span class="pill-count" id="countDomestic">0</span></button>
+            <button class="filter-pill" data-type="Women">Women <span class="pill-count" id="countWomen">0</span></button>
+          </div>
+
+          <!-- Format Filter Pills -->
+          <div class="filter-pills format-pills" id="upcomingFormatFilters">
+            <button class="filter-pill active" data-format="all">All Formats</button>
+            <button class="filter-pill format-test" data-format="TEST">TEST</button>
+            <button class="filter-pill format-odi" data-format="ODI">ODI</button>
+            <button class="filter-pill format-t20" data-format="T20">T20</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Summary Stats Strip -->
+      <div class="upcoming-stats-grid">
+        <div class="upcoming-stat-card">
+          <div class="stat-icon icon-blue"><i class="fa-solid fa-globe"></i></div>
+          <div class="stat-details">
+            <span class="stat-val" id="statTotalMatches">0</span>
+            <label>Total Upcoming Fixtures</label>
+          </div>
+        </div>
+        <div class="upcoming-stat-card">
+          <div class="stat-icon icon-emerald"><i class="fa-solid fa-trophy"></i></div>
+          <div class="stat-details">
+            <span class="stat-val" id="statSeriesCount">0</span>
+            <label>Featured Series</label>
+          </div>
+        </div>
+        <div class="upcoming-stat-card">
+          <div class="stat-icon icon-amber"><i class="fa-solid fa-people-group"></i></div>
+          <div class="stat-details">
+            <span class="stat-val" id="statTeamsCount">0</span>
+            <label>Teams Competing</label>
+          </div>
+        </div>
+        <div class="upcoming-stat-card">
+          <div class="stat-icon icon-purple"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="stat-details">
+            <span class="stat-val" id="statVenuesCount">0</span>
+            <label>Venues Worldwide</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming Matches Container -->
+      <div class="upcoming-matches-grid" id="upcomingMatchesGrid">
+        <!-- Matches dynamically rendered here -->
+      </div>
+    </main>
+
+    <!-- TAB 4B: UPCOMING TOURNAMENTS & SERIES -->
+    <main class="scorecard-view" id="tab-series">
+      <div class="series-controls-card">
+        <div class="series-header-row">
+          <div class="series-title-box">
+            <i class="fa-solid fa-trophy"></i>
+            <div>
+              <h2>Upcoming Tournaments & Series</h2>
+              <p>Explore international tours, world cups, premier T20 leagues, domestic championships & women's fixtures</p>
+            </div>
+          </div>
+
+          <div class="series-controls-actions">
+            <!-- Search box -->
+            <div class="search-box series-search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="seriesSearchInput" placeholder="Search tournament, country, league...">
+            </div>
+
+            <!-- Sync Button -->
+            <button class="btn btn-secondary" id="btnSyncSeriesTab" title="Sync All Series & Tournaments from RapidAPI">
+              <i class="fa-solid fa-arrows-rotate"></i> <span>Sync Series</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="series-filters-row">
+          <!-- Category Filter Pills -->
+          <div class="filter-pills" id="seriesCategoryFilters">
+            <button class="filter-pill active" data-category="all">All Tournaments <span class="pill-count" id="countSeriesAll">0</span></button>
+            <button class="filter-pill" data-category="International">International <span class="pill-count" id="countSeriesInt">0</span></button>
+            <button class="filter-pill" data-category="League">League / T20 <span class="pill-count" id="countSeriesLeague">0</span></button>
+            <button class="filter-pill" data-category="Domestic">Domestic <span class="pill-count" id="countSeriesDomestic">0</span></button>
+            <button class="filter-pill" data-category="Women">Women's <span class="pill-count" id="countSeriesWomen">0</span></button>
+          </div>
+
+          <!-- Month / Timeline Dropdown Filter -->
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="seriesMonthFilter" style="font-size: 0.82rem; color: var(--text-secondary); font-weight: 600;">Timeline:</label>
+            <select id="seriesMonthFilter" class="series-month-select">
+              <option value="all">All Timeframes</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Summary Stats Strip for Series -->
+      <div class="upcoming-stats-grid">
+        <div class="upcoming-stat-card">
+          <div class="stat-icon icon-amber"><i class="fa-solid fa-trophy"></i></div>
+          <div class="stat-details">
+            <span class="stat-val" id="statTotalSeries">0</span>
+            <label>Total Tournaments & Series</label>
+          </div>
+        </div>
+        <div class="upcoming-stat-card">
+          <div class="stat-icon icon-blue"><i class="fa-solid fa-globe"></i></div>
+          <div class="stat-details">
+            <span class="stat-val" id="statIntSeries">0</span>
+            <label>International Tours</label>
+          </div>
+        </div>
+        <div class="upcoming-stat-card">
+          <div class="stat-icon icon-purple"><i class="fa-solid fa-bolt"></i></div>
+          <div class="stat-details">
+            <span class="stat-val" id="statLeagueSeries">0</span>
+            <label>Premier Leagues</label>
+          </div>
+        </div>
+        <div class="upcoming-stat-card">
+          <div class="stat-icon icon-emerald"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="stat-details">
+            <span class="stat-val" id="statDomesticWomenSeries">0</span>
+            <label>Domestic & Women's Cups</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tournaments Grid -->
+      <div class="series-grid" id="seriesGrid">
+        <!-- Series cards dynamically rendered here -->
+      </div>
+    </main>
+
+  </div>
+
+  <!-- MODAL: UPLOAD CUSTOM JSON -->
+  <div class="modal-overlay" id="modalUpload">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-file-import"></i> Load Scorecard JSON File</div>
+        <button class="modal-close" id="btnCloseUpload"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="dropzone" id="dropzone">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <h3>Drag & Drop JSON file here</h3>
+          <p style="color: var(--text-secondary); margin: 8px 0;">or click to browse from your computer</p>
+          <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
+          <button class="btn btn-primary" onclick="document.getElementById('jsonFileInput').click();">Select JSON File</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: RAW JSON VIEWER -->
+  <div class="modal-overlay" id="modalRawJson">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-code"></i> Raw Scorecard JSON Data</div>
+        <button class="modal-close" id="btnCloseRawJson"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <textarea class="json-textarea" id="rawJsonTextarea" readonly></textarea>
+        <div style="margin-top: 14px; text-align: right;">
+          <button class="btn btn-primary" id="btnCopyJson"><i class="fa-solid fa-copy"></i> Copy JSON</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: TOURNAMENT / SERIES MATCH SCHEDULE -->
+  <div class="modal-overlay" id="modalSeriesSchedule">
+    <div class="modal-content modal-series-content">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-trophy"></i> Tournament Match Schedule</div>
+        <button class="modal-close" id="btnCloseSeriesSchedule"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="series-modal-header-info">
+          <div class="series-modal-title-wrap">
+            <h3 id="seriesModalName">Tournament Name</h3>
+            <p id="seriesModalDates"><i class="fa-regular fa-calendar"></i> Oct 09, 2026 - Nov 05, 2026</p>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <span class="badge-cat" id="seriesModalCategoryBadge">International</span>
+            <span class="series-matches-chip" id="seriesModalMatchCount">0 Matches</span>
+          </div>
+        </div>
+        <div class="series-matches-list" id="seriesMatchesListContainer">
+          <!-- Matches list rendered dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- App JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>
