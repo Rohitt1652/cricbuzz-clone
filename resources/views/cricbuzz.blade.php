@@ -56,6 +56,17 @@
       </div>
     </header>
 
+    <!-- Live Matches Quick Ticker Strip (Cricbuzz Classic) -->
+    <section class="live-ticker-container" id="liveTickerContainer">
+      <div class="ticker-header">
+        <span class="ticker-label"><i class="fa-solid fa-circle-dot live-dot"></i> MATCHES</span>
+        <span class="ticker-sub">Featured & Live Scores</span>
+      </div>
+      <div class="ticker-scroll-track" id="tickerScrollTrack">
+        <!-- Injected dynamically by JS -->
+      </div>
+    </section>
+
     <!-- Match Hero / Result Banner -->
     <section class="match-hero">
       <div class="match-meta-bar">
@@ -150,6 +161,9 @@
         <i class="fa-solid fa-cricket-bat-ball"></i> <span id="tabTitle2">USA 2nd Innings</span>
         <span class="tab-badge" id="tabBadge2">141/7</span>
       </button>
+      <button class="nav-tab" data-tab="tab-match-info" id="tabBtnMatchInfo" onclick="switchTab('tab-match-info')">
+        <i class="fa-solid fa-circle-info"></i> <span>Match Info</span>
+      </button>
       <button class="nav-tab" data-tab="tab-analytics" onclick="switchTab('tab-analytics')">
         <i class="fa-solid fa-chart-line"></i> <span>Match Analytics</span>
       </button>
@@ -223,6 +237,12 @@
         <div class="total-row" id="total-row-1">
           <div class="row-label">Total Score</div>
           <div class="total-val" id="total-val-1">150/10 (18.5 Overs, RR: 7.96)</div>
+        </div>
+
+        <!-- Did Not Bat Row -->
+        <div class="dnb-row" id="dnb-row-1" style="display: none;">
+          <span class="dnb-label">Did not bat:</span>
+          <span class="dnb-players" id="dnb-players-1"></span>
         </div>
       </div>
 
@@ -353,6 +373,12 @@
           <div class="row-label">Total Score</div>
           <div class="total-val" id="total-val-2">141/7 (20.0 Overs, RR: 7.05)</div>
         </div>
+
+        <!-- Did Not Bat Row -->
+        <div class="dnb-row" id="dnb-row-2" style="display: none;">
+          <span class="dnb-label">Did not bat:</span>
+          <span class="dnb-players" id="dnb-players-2"></span>
+        </div>
       </div>
 
       <!-- Bowling Table Card -->
@@ -423,6 +449,95 @@
         </div>
       </div>
 
+    </main>
+
+    <!-- TAB: MATCH INFO (Cricbuzz Classic) -->
+    <main class="scorecard-view" id="tab-match-info">
+      <!-- Navigation back strip -->
+      <div class="scorecard-nav-bar">
+        <button type="button" class="btn btn-back-matches" onclick="goToCompletedMatches()">
+          <i class="fa-solid fa-arrow-left"></i> <span>Back to Completed Matches</span>
+        </button>
+        <div class="current-match-pill">
+          <i class="fa-solid fa-circle-info"></i> <span id="currentMatchPillTextInfo">Match Information</span>
+        </div>
+      </div>
+
+      <div class="match-info-grid">
+        <!-- Match Details Card -->
+        <div class="table-card info-card">
+          <div class="card-title-row">
+            <div class="card-title">
+              <i class="fa-solid fa-circle-info"></i> <span>Match Details</span>
+            </div>
+          </div>
+          <div class="info-details-table">
+            <div class="info-row">
+              <span class="info-label">Match</span>
+              <span class="info-val" id="infoMatchDesc">2nd T20I, Ireland tour of USA, 2021</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Series</span>
+              <span class="info-val" id="infoSeriesName">Ireland tour of USA, 2021</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Date</span>
+              <span class="info-val" id="infoDateTime">Dec 23, 2021</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Toss</span>
+              <span class="info-val" id="infoToss">United States won the toss and opted to bowl</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Venue</span>
+              <span class="info-val" id="infoVenue">Central Broward Regional Park Stadium Turf Ground, Lauderhill, Florida</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Umpires</span>
+              <span class="info-val" id="infoUmpires">Vijaya Mallela, Leslie Reifer</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Third Umpire</span>
+              <span class="info-val" id="infoThirdUmpire">Samir Bandekar</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Match Referee</span>
+              <span class="info-val" id="infoReferee">Jermaine Lindo</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Match Result</span>
+              <span class="info-val stat-bold" style="color: var(--accent-emerald);" id="infoResult">Ireland won by 9 runs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Playing XI & Squads Card -->
+        <div class="table-card info-card">
+          <div class="card-title-row">
+            <div class="card-title">
+              <i class="fa-solid fa-users"></i> <span>Playing XI</span>
+            </div>
+          </div>
+          <div class="playing-xi-grid">
+            <div class="xi-team-box">
+              <div class="xi-team-header" id="xiTeam1Header">
+                <span id="xiTeam1Title">Ireland</span>
+              </div>
+              <div class="xi-players-list" id="xiTeam1List">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+            <div class="xi-team-box">
+              <div class="xi-team-header" id="xiTeam2Header">
+                <span id="xiTeam2Title">United States</span>
+              </div>
+              <div class="xi-players-list" id="xiTeam2List">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <!-- TAB 3: MATCH ANALYTICS & COMPARISON -->
