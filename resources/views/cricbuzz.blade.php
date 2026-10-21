@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cricbuzz Live Cricket & Upcoming Matches</title>
-  <meta name="description" content="Live Cricket Match Scorecard & Upcoming Fixtures synced dynamically via Cricbuzz RapidAPI">
+  <title>Cricbuzz Live Cricket, Scorecards & Fixtures</title>
+  <meta name="description" content="Live Cricket Match Scorecard, Recent Matches & Upcoming Fixtures synced dynamically via Cricbuzz RapidAPI">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -27,28 +27,47 @@
     
     <!-- Top Bar / App Header -->
     <header class="app-header">
-      <div class="brand-section">
-        <div class="brand-icon">
-          <i class="fa-solid fa-trophy"></i>
+      <div class="brand-section" onclick="switchSection('section-scorecard')" style="cursor: pointer;">
+        <div class="brand-logo">
+          <i class="fa-solid fa-cricket-bat-ball brand-icon"></i>
+          <span class="logo-text"><span class="logo-cric">cric</span><span class="logo-buzz">buzz</span></span>
         </div>
-        <div>
-          <h1 class="brand-title">CRICBUZZ SCORECARD</h1>
-          <div class="brand-subtitle" id="matchSubTitle">T20 INTERNATIONAL SCORECARD</div>
+        <div class="brand-badge-tag">
+          <span class="live-pulse-dot"></span> LIVE CENTER
         </div>
       </div>
+
+      <!-- Main Navigation Links (Clean separation of sections) -->
+      <nav class="main-site-nav">
+        <button type="button" class="site-nav-btn active" data-section="section-scorecard" id="siteNavScorecard" onclick="switchSection('section-scorecard')">
+          <i class="fa-solid fa-chart-column"></i> <span>Match Scorecard</span>
+        </button>
+        <button type="button" class="site-nav-btn" data-section="section-completed" id="siteNavCompleted" onclick="switchSection('section-completed')">
+          <i class="fa-solid fa-circle-check"></i> <span>Recent Matches</span>
+          <span class="nav-count-badge" id="navBadgeCompleted">0</span>
+        </button>
+        <button type="button" class="site-nav-btn" data-section="section-upcoming" id="siteNavUpcoming" onclick="switchSection('section-upcoming')">
+          <i class="fa-solid fa-calendar-days"></i> <span>Upcoming Schedule</span>
+          <span class="nav-count-badge" id="navBadgeUpcoming">0</span>
+        </button>
+        <button type="button" class="site-nav-btn" data-section="section-series" id="siteNavSeries" onclick="switchSection('section-series')">
+          <i class="fa-solid fa-trophy"></i> <span>Tournaments & Series</span>
+          <span class="nav-count-badge" id="navBadgeSeries">0</span>
+        </button>
+      </nav>
       
       <div class="header-controls">
         <button class="btn btn-primary" id="btnSyncLiveData" title="One-Click Sync with Cricbuzz RapidAPI">
-          <i class="fa-solid fa-arrows-rotate"></i> <span>Sync Live API</span>
+          <i class="fa-solid fa-arrows-rotate"></i> <span>Sync API</span>
         </button>
-        <button class="btn" id="btnUploadModal" title="Upload Custom JSON">
+        <button class="btn btn-secondary" id="btnUploadModal" title="Upload Custom JSON">
           <i class="fa-solid fa-file-import"></i> <span>Load JSON</span>
         </button>
-        <button class="btn" id="btnRawJsonModal" title="View Raw JSON">
+        <button class="btn btn-secondary" id="btnRawJsonModal" title="View Raw JSON">
           <i class="fa-solid fa-code"></i> <span>Raw JSON</span>
         </button>
-        <button class="btn" id="btnPrint" title="Print Scorecard">
-          <i class="fa-solid fa-print"></i> <span>Print</span>
+        <button class="btn btn-icon-only" id="btnPrint" title="Print Scorecard">
+          <i class="fa-solid fa-print"></i>
         </button>
         <button class="btn btn-icon-only" id="btnThemeToggle" title="Toggle Theme">
           <i class="fa-solid fa-moon"></i>
@@ -60,513 +79,534 @@
     <section class="live-ticker-container" id="liveTickerContainer">
       <div class="ticker-header">
         <span class="ticker-label"><i class="fa-solid fa-circle-dot live-dot"></i> MATCHES</span>
-        <span class="ticker-sub">Featured & Live Scores</span>
+        <span class="ticker-sub">Featured Matches</span>
       </div>
       <div class="ticker-scroll-track" id="tickerScrollTrack">
         <!-- Injected dynamically by JS -->
       </div>
     </section>
 
-    <!-- Match Hero / Result Banner -->
-    <section class="match-hero">
-      <div class="match-meta-bar">
-        <div class="series-title" id="seriesTitle">
-          <i class="fa-solid fa-location-dot"></i> <span>Ireland tour of USA, 2021 • 2nd T20I</span>
+    <!-- ========================================================
+         SECTION 1: MATCH SCORECARD CENTER (#section-scorecard)
+         ======================================================== -->
+    <section class="app-main-section active" id="section-scorecard">
+      
+      <!-- Match Hero / Result Banner -->
+      <section class="match-hero">
+        <div class="match-meta-bar">
+          <div class="series-title" id="seriesTitle">
+            <i class="fa-solid fa-location-dot"></i> <span>Ireland tour of USA, 2021 • 2nd T20I</span>
+          </div>
+          <div class="status-badge" id="matchStatusBadge">
+            <i class="fa-solid fa-circle-check"></i> <span id="matchStatusText">Ireland won by 9 runs</span>
+          </div>
         </div>
-        <div class="status-badge" id="matchStatusBadge">
-          <i class="fa-solid fa-circle-check"></i> <span id="matchStatusText">Ireland won by 9 runs</span>
+
+        <div class="match-teams-grid">
+          <!-- Team 1 (Ireland) -->
+          <div class="team-card winner" id="teamCard1">
+            <div class="team-flag flag-ire" id="flagTeam1">IRE</div>
+            <div class="team-details">
+              <div class="team-name-row">
+                <span class="team-fullname" id="team1Name">Ireland</span>
+                <i class="fa-solid fa-crown winner-crown" title="Winner"></i>
+              </div>
+              <div class="team-score-display">
+                <span class="score-main" id="team1Score">150/10</span>
+                <span class="score-overs" id="team1Overs">(18.5 Ov)</span>
+                <span class="score-rr" id="team1RR">RR: 7.96</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- VS Divider -->
+          <div class="vs-divider">
+            <div class="vs-badge">VS</div>
+          </div>
+
+          <!-- Team 2 (United States) -->
+          <div class="team-card" id="teamCard2">
+            <div class="team-flag flag-usa" id="flagTeam2">USA</div>
+            <div class="team-details">
+              <div class="team-name-row">
+                <span class="team-fullname" id="team2Name">United States</span>
+                <i class="fa-solid fa-crown winner-crown" title="Winner"></i>
+              </div>
+              <div class="team-score-display">
+                <span class="score-main" id="team2Score">141/7</span>
+                <span class="score-overs" id="team2Overs">(20.0 Ov)</span>
+                <span class="score-rr" id="team2RR">RR: 7.05</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Stats Highlights Strip -->
+        <div class="match-highlights-strip">
+          <div class="highlight-pill">
+            <div class="highlight-icon icon-amber">
+              <i class="fa-solid fa-award"></i>
+            </div>
+            <div class="highlight-text">
+              <label>Top Scorer</label>
+              <span id="topScorerHighlight">Lorcan Tucker (84 off 56)</span>
+            </div>
+          </div>
+
+          <div class="highlight-pill">
+            <div class="highlight-icon icon-blue">
+              <i class="fa-solid fa-bowling-ball"></i>
+            </div>
+            <div class="highlight-text">
+              <label>Best Bowling Spell</label>
+              <span id="bestBowlerHighlight">S. Netravalkar (3/33)</span>
+            </div>
+          </div>
+
+          <div class="highlight-pill">
+            <div class="highlight-icon icon-purple">
+              <i class="fa-solid fa-chart-simple"></i>
+            </div>
+            <div class="highlight-text">
+              <label>Match Boundaries</label>
+              <span id="matchBoundariesHighlight">19 Fours, 8 Sixes</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scoped Match Sub-Navigation Tabs (Clean and focused on current match) -->
+      <nav class="match-sub-nav">
+        <button class="sub-nav-btn active" data-subtab="tab-innings-1" id="tabBtnInnings1" onclick="switchMatchSubTab('tab-innings-1')">
+          <i class="fa-solid fa-cricket-bat-ball"></i> <span id="tabTitle1">IRE 1st Innings</span>
+          <span class="sub-badge" id="tabBadge1">150/10</span>
+        </button>
+        <button class="sub-nav-btn" data-subtab="tab-innings-2" id="tabBtnInnings2" onclick="switchMatchSubTab('tab-innings-2')">
+          <i class="fa-solid fa-cricket-bat-ball"></i> <span id="tabTitle2">USA 2nd Innings</span>
+          <span class="sub-badge" id="tabBadge2">141/7</span>
+        </button>
+        <button class="sub-nav-btn" data-subtab="tab-match-info" id="tabBtnMatchInfo" onclick="switchMatchSubTab('tab-match-info')">
+          <i class="fa-solid fa-circle-info"></i> <span>Match Info & Squads</span>
+        </button>
+        <button class="sub-nav-btn" data-subtab="tab-analytics" id="tabBtnAnalytics" onclick="switchMatchSubTab('tab-analytics')">
+          <i class="fa-solid fa-chart-line"></i> <span>Match Analytics</span>
+        </button>
+      </nav>
+
+      <!-- SUB-TAB 1: INNINGS 1 SCORECARD -->
+      <main class="scorecard-view active" id="tab-innings-1">
+        <!-- Navigation back strip -->
+        <div class="scorecard-nav-bar">
+          <button type="button" class="btn btn-back-matches" onclick="goToCompletedMatches()">
+            <i class="fa-solid fa-arrow-left"></i> <span>Back to Completed Matches</span>
+          </button>
+          <div class="current-match-pill">
+            <i class="fa-solid fa-circle-check"></i> <span id="currentMatchPillText1">Scorecard View</span>
+          </div>
+        </div>
+        
+        <!-- Batting Table Card -->
+        <div class="table-card">
+          <div class="card-title-row">
+            <div class="card-title">
+              <i class="fa-solid fa-shirt"></i> <span id="batTeam1Header">Ireland Batting</span>
+            </div>
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" class="player-search" data-target="batting-table-1" placeholder="Filter batter...">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table" id="batting-table-1">
+              <thead>
+                <tr>
+                  <th>Batter</th>
+                  <th>Dismissal</th>
+                  <th style="text-align: right;">R</th>
+                  <th style="text-align: right;">B</th>
+                  <th style="text-align: right;">4s</th>
+                  <th style="text-align: right;">6s</th>
+                  <th style="text-align: right;">SR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Batting rows injected dynamically -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Extras Row -->
+          <div class="extras-row" id="extras-row-1">
+            <div class="row-label">Extras</div>
+            <div class="extras-breakdown" id="extras-breakdown-1">
+              <!-- Extras details -->
+            </div>
+          </div>
+
+          <!-- Total Score Row -->
+          <div class="total-row" id="total-row-1">
+            <div class="row-label">Total Score</div>
+            <div class="total-val" id="total-val-1">150/10 (18.5 Overs, RR: 7.96)</div>
+          </div>
+
+          <!-- Did Not Bat Row -->
+          <div class="dnb-row" id="dnb-row-1" style="display: none;">
+            <span class="dnb-label">Did not bat:</span>
+            <span class="dnb-players" id="dnb-players-1"></span>
+          </div>
+        </div>
+
+        <!-- Bowling Table Card -->
+        <div class="table-card">
+          <div class="card-title-row">
+            <div class="card-title">
+              <i class="fa-solid fa-bowling-ball"></i> <span id="bowlTeam1Header">United States Bowling</span>
+            </div>
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" class="player-search" data-target="bowling-table-1" placeholder="Filter bowler...">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table" id="bowling-table-1">
+              <thead>
+                <tr>
+                  <th>Bowler</th>
+                  <th style="text-align: right;">O</th>
+                  <th style="text-align: right;">M</th>
+                  <th style="text-align: right;">R</th>
+                  <th style="text-align: right;">W</th>
+                  <th style="text-align: right;">ECON</th>
+                  <th style="text-align: right;">Dots</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Bowling rows injected dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Powerplay Breakdown Card -->
+        <div class="table-card">
+          <div class="card-title-row">
+            <div class="card-title">
+              <i class="fa-solid fa-bolt"></i> <span>Powerplay Details</span>
+            </div>
+          </div>
+          <div id="powerplay-container-1">
+            <!-- Powerplay cards -->
+          </div>
+        </div>
+
+        <!-- Fall of Wickets Card -->
+        <div class="table-card">
+          <div class="card-title-row">
+            <div class="card-title">
+              <i class="fa-solid fa-circle-exclamation"></i> <span>Fall of Wickets</span>
+            </div>
+          </div>
+          <div class="fow-grid" id="fow-grid-1">
+            <!-- FOW chips injected dynamically -->
+          </div>
+        </div>
+
+        <!-- Partnerships Card -->
+        <div class="table-card">
+          <div class="card-title-row">
+            <div class="card-title">
+              <i class="fa-solid fa-handshake"></i> <span>Partnerships Breakdown</span>
+            </div>
+          </div>
+          <div class="partnership-list" id="partnerships-1">
+            <!-- Partnerships injected dynamically -->
+          </div>
+        </div>
+
+      </main>
+
+      <!-- SUB-TAB 2: INNINGS 2 SCORECARD -->
+      <main class="scorecard-view" id="tab-innings-2">
+        <!-- Navigation back strip -->
+        <div class="scorecard-nav-bar">
+          <button type="button" class="btn btn-back-matches" onclick="goToCompletedMatches()">
+            <i class="fa-solid fa-arrow-left"></i> <span>Back to Completed Matches</span>
+          </button>
+          <div class="current-match-pill">
+            <i class="fa-solid fa-circle-check"></i> <span id="currentMatchPillText2">Scorecard View</span>
+          </div>
+        </div>
+
+        <!-- Batting Table Card -->
+        <div class="table-card">
+          <div class="card-title-row">
+            <div class="card-title">
+              <i class="fa-solid fa-shirt"></i> <span id="batTeam2Header">United States Batting</span>
+            </div>
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" class="player-search" data-target="batting-table-2" placeholder="Filter batter...">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table" id="batting-table-2">
+              <thead>
+                <tr>
+                  <th>Batter</th>
+                  <th>Dismissal</th>
+                  <th style="text-align: right;">R</th>
+                  <th style="text-align: right;">B</th>
+                  <th style="text-align: right;">4s</th>
+                  <th style="text-align: right;">6s</th>
+                  <th style="text-align: right;">SR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Batting rows injected dynamically -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Extras Row -->
+          <div class="extras-row" id="extras-row-2">
+            <div class="row-label">Extras</div>
+            <div class="extras-breakdown" id="extras-breakdown-2">
+              <!-- Extras details -->
+            </div>
+          </div>
+
+          <!-- Total Score Row -->
+          <div class="total-row" id="total-row-2">
+            <div class="row-label">Total Score</div>
+            <div class="total-val" id="total-val-2">141/7 (20.0 Overs, RR: 7.05)</div>
+          </div>
+
+          <!-- Did Not Bat Row -->
+          <div class="dnb-row" id="dnb-row-2" style="display: none;">
+            <span class="dnb-label">Did not bat:</span>
+            <span class="dnb-players" id="dnb-players-2"></span>
+          </div>
+        </div>
+
+        <!-- Bowling Table Card -->
+        <div class="table-card">
+          <div class="card-title-row">
+            <div class="card-title">
+              <i class="fa-solid fa-bowling-ball"></i> <span id="bowlTeam2Header">Ireland Bowling</span>
+            </div>
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" class="player-search" data-target="bowling-table-2" placeholder="Filter bowler...">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table" id="bowling-table-2">
+              <thead>
+                <tr>
+                  <th>Bowler</th>
+                  <th style="text-align: right;">O</th>
+                  <th style="text-align: right;">M</th>
+                  <th style="text-align: right;">R</th>
+                  <th style="text-align: right;">W</th>
+                  <th style="text-align: right;">ECON</th>
+                  <th style="text-align: right;">Dots</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Bowling rows injected dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Powerplay Breakdown -->
+        <div class="table-card">
+          <div class="card-title-row">
+            <div class="card-title">
+              <i class="fa-solid fa-bolt"></i> <span>Powerplay Details</span>
+            </div>
+          </div>
+          <div id="powerplay-container-2">
+            <!-- Powerplay cards -->
+          </div>
+        </div>
+
+        <!-- Fall of Wickets Card -->
+        <div class="table-card">
+          <div class="card-title-row">
+            <div class="card-title">
+              <i class="fa-solid fa-circle-exclamation"></i> <span>Fall of Wickets</span>
+            </div>
+          </div>
+          <div class="fow-grid" id="fow-grid-2">
+            <!-- FOW chips injected dynamically -->
+          </div>
+        </div>
+
+        <!-- Partnerships Card -->
+        <div class="table-card">
+          <div class="card-title-row">
+            <div class="card-title">
+              <i class="fa-solid fa-handshake"></i> <span>Partnerships Breakdown</span>
+            </div>
+          </div>
+          <div class="partnership-list" id="partnerships-2">
+            <!-- Partnerships injected dynamically -->
+          </div>
+        </div>
+
+      </main>
+
+      <!-- SUB-TAB 3: MATCH INFO (Cricbuzz Classic) -->
+      <main class="scorecard-view" id="tab-match-info">
+        <!-- Navigation back strip -->
+        <div class="scorecard-nav-bar">
+          <button type="button" class="btn btn-back-matches" onclick="goToCompletedMatches()">
+            <i class="fa-solid fa-arrow-left"></i> <span>Back to Completed Matches</span>
+          </button>
+          <div class="current-match-pill">
+            <i class="fa-solid fa-circle-info"></i> <span id="currentMatchPillTextInfo">Match Information</span>
+          </div>
+        </div>
+
+        <div class="match-info-grid">
+          <!-- Match Details Card -->
+          <div class="table-card info-card">
+            <div class="card-title-row">
+              <div class="card-title">
+                <i class="fa-solid fa-circle-info"></i> <span>Match Details</span>
+              </div>
+            </div>
+            <div class="info-details-table">
+              <div class="info-row">
+                <span class="info-label">Match</span>
+                <span class="info-val" id="infoMatchDesc">2nd T20I, Ireland tour of USA, 2021</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Series</span>
+                <span class="info-val" id="infoSeriesName">Ireland tour of USA, 2021</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Date</span>
+                <span class="info-val" id="infoDateTime">Dec 23, 2021</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Toss</span>
+                <span class="info-val" id="infoToss">United States won the toss and opted to bowl</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Venue</span>
+                <span class="info-val" id="infoVenue">Central Broward Regional Park Stadium Turf Ground, Lauderhill, Florida</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Umpires</span>
+                <span class="info-val" id="infoUmpires">Vijaya Mallela, Leslie Reifer</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Third Umpire</span>
+                <span class="info-val" id="infoThirdUmpire">Samir Bandekar</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Match Referee</span>
+                <span class="info-val" id="infoReferee">Jermaine Lindo</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Match Result</span>
+                <span class="info-val stat-bold" style="color: var(--accent-emerald);" id="infoResult">Ireland won by 9 runs</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Playing XI & Squads Card -->
+          <div class="table-card info-card">
+            <div class="card-title-row">
+              <div class="card-title">
+                <i class="fa-solid fa-users"></i> <span>Playing XI</span>
+              </div>
+            </div>
+            <div class="playing-xi-grid">
+              <div class="xi-team-box">
+                <div class="xi-team-header" id="xiTeam1Header">
+                  <span id="xiTeam1Title">Ireland</span>
+                </div>
+                <div class="xi-players-list" id="xiTeam1List">
+                  <!-- Injected dynamically -->
+                </div>
+              </div>
+              <div class="xi-team-box">
+                <div class="xi-team-header" id="xiTeam2Header">
+                  <span id="xiTeam2Title">United States</span>
+                </div>
+                <div class="xi-players-list" id="xiTeam2List">
+                  <!-- Injected dynamically -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- SUB-TAB 4: MATCH ANALYTICS & COMPARISON -->
+      <main class="scorecard-view" id="tab-analytics">
+        <div class="analytics-grid">
+          <!-- Boundary Comparison Chart -->
+          <div class="chart-card">
+            <div class="card-title-row">
+              <div class="card-title"><i class="fa-solid fa-chart-pie"></i> <span>Boundary Analysis (4s vs 6s)</span></div>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="chartBoundaries"></canvas>
+            </div>
+          </div>
+
+          <!-- Run Rate Comparison Chart -->
+          <div class="chart-card">
+            <div class="card-title-row">
+              <div class="card-title"><i class="fa-solid fa-chart-column"></i> <span>Innings Comparison</span></div>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="chartComparison"></canvas>
+            </div>
+          </div>
+        </div>
+      </main>
+
+    </section>
+
+    <!-- ========================================================
+         SECTION 2: RECENT & COMPLETED MATCHES (#section-completed)
+         ======================================================== -->
+    <section class="app-main-section" id="section-completed">
+      <div class="upcoming-controls-card">
+        <div class="upcoming-header-row">
+          <div class="upcoming-title">
+            <i class="fa-solid fa-circle-check"></i>
+            <div>
+              <h2>Recent & Completed Matches</h2>
+              <p>Explore finished match scorecards, results, and team performances</p>
+            </div>
+          </div>
+          
+          <div class="search-box upcoming-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="completedSearchInput" placeholder="Search team, series, venue, result...">
+          </div>
         </div>
       </div>
 
-      <div class="match-teams-grid">
-        <!-- Team 1 (Ireland) -->
-        <div class="team-card winner" id="teamCard1">
-          <div class="team-flag flag-ire" id="flagTeam1">IRE</div>
-          <div class="team-details">
-            <div class="team-name-row">
-              <span class="team-fullname" id="team1Name">Ireland</span>
-              <i class="fa-solid fa-crown winner-crown" title="Winner"></i>
-            </div>
-            <div class="team-score-display">
-              <span class="score-main" id="team1Score">150/10</span>
-              <span class="score-overs" id="team1Overs">(18.5 Ov)</span>
-              <span class="score-rr" id="team1RR">RR: 7.96</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- VS Divider -->
-        <div class="vs-divider">
-          <div class="vs-badge">VS</div>
-        </div>
-
-        <!-- Team 2 (United States) -->
-        <div class="team-card" id="teamCard2">
-          <div class="team-flag flag-usa" id="flagTeam2">USA</div>
-          <div class="team-details">
-            <div class="team-name-row">
-              <span class="team-fullname" id="team2Name">United States</span>
-              <i class="fa-solid fa-crown winner-crown" title="Winner"></i>
-            </div>
-            <div class="team-score-display">
-              <span class="score-main" id="team2Score">141/7</span>
-              <span class="score-overs" id="team2Overs">(20.0 Ov)</span>
-              <span class="score-rr" id="team2RR">RR: 7.05</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quick Stats Highlights Strip -->
-      <div class="match-highlights-strip">
-        <div class="highlight-pill">
-          <div class="highlight-icon icon-amber">
-            <i class="fa-solid fa-award"></i>
-          </div>
-          <div class="highlight-text">
-            <label>Top Scorer</label>
-            <span id="topScorerHighlight">Lorcan Tucker (84 off 56)</span>
-          </div>
-        </div>
-
-        <div class="highlight-pill">
-          <div class="highlight-icon icon-blue">
-            <i class="fa-solid fa-bowling-ball"></i>
-          </div>
-          <div class="highlight-text">
-            <label>Best Bowling Spell</label>
-            <span id="bestBowlerHighlight">S. Netravalkar (3/33)</span>
-          </div>
-        </div>
-
-        <div class="highlight-pill">
-          <div class="highlight-icon icon-purple">
-            <i class="fa-solid fa-chart-simple"></i>
-          </div>
-          <div class="highlight-text">
-            <label>Match Boundaries</label>
-            <span id="matchBoundariesHighlight">19 Fours, 8 Sixes</span>
-          </div>
-        </div>
+      <div class="upcoming-matches-grid" id="completedMatchesGrid">
+        <!-- Completed match cards dynamically rendered -->
       </div>
     </section>
 
-    <!-- Navigation Tabs -->
-    <nav class="tabs-navigation">
-      <button class="nav-tab active" data-tab="tab-innings-1" id="tabBtnInnings1" onclick="switchTab('tab-innings-1')">
-        <i class="fa-solid fa-cricket-bat-ball"></i> <span id="tabTitle1">IRE 1st Innings</span>
-        <span class="tab-badge" id="tabBadge1">150/10</span>
-      </button>
-      <button class="nav-tab" data-tab="tab-innings-2" id="tabBtnInnings2" onclick="switchTab('tab-innings-2')">
-        <i class="fa-solid fa-cricket-bat-ball"></i> <span id="tabTitle2">USA 2nd Innings</span>
-        <span class="tab-badge" id="tabBadge2">141/7</span>
-      </button>
-      <button class="nav-tab" data-tab="tab-match-info" id="tabBtnMatchInfo" onclick="switchTab('tab-match-info')">
-        <i class="fa-solid fa-circle-info"></i> <span>Match Info</span>
-      </button>
-      <button class="nav-tab" data-tab="tab-analytics" onclick="switchTab('tab-analytics')">
-        <i class="fa-solid fa-chart-line"></i> <span>Match Analytics</span>
-      </button>
-      <button class="nav-tab" data-tab="tab-upcoming" id="tabBtnUpcoming" onclick="switchTab('tab-upcoming')">
-        <i class="fa-solid fa-calendar-days"></i> <span>Upcoming Matches</span>
-        <span class="tab-badge tab-badge-upcoming" id="tabBadgeUpcoming">0</span>
-      </button>
-      <button class="nav-tab" data-tab="tab-series" id="tabBtnSeries" onclick="switchTab('tab-series')">
-        <i class="fa-solid fa-trophy"></i> <span>Tournaments & Series</span>
-        <span class="tab-badge tab-badge-series" id="tabBadgeSeries">0</span>
-      </button>
-      <button class="nav-tab" data-tab="tab-completed" id="tabBtnCompleted" onclick="switchTab('tab-completed')">
-        <i class="fa-solid fa-circle-check"></i> <span>Completed Matches</span>
-        <span class="tab-badge tab-badge-completed" id="tabBadgeCompleted">0</span>
-      </button>
-    </nav>
-
-    <!-- TAB 1: INNINGS 1 SCORECARD -->
-    <main class="scorecard-view active" id="tab-innings-1">
-
-      <!-- Navigation back strip -->
-      <div class="scorecard-nav-bar">
-        <button type="button" class="btn btn-back-matches" onclick="goToCompletedMatches()">
-          <i class="fa-solid fa-arrow-left"></i> <span>Back to Completed Matches</span>
-        </button>
-        <div class="current-match-pill">
-          <i class="fa-solid fa-circle-check"></i> <span id="currentMatchPillText1">Scorecard View</span>
-        </div>
-      </div>
-      
-      <!-- Batting Table Card -->
-      <div class="table-card">
-        <div class="card-title-row">
-          <div class="card-title">
-            <i class="fa-solid fa-shirt"></i> <span id="batTeam1Header">Ireland Batting</span>
-          </div>
-          <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" class="player-search" data-target="batting-table-1" placeholder="Filter batter...">
-          </div>
-        </div>
-
-        <div class="table-responsive">
-          <table class="data-table" id="batting-table-1">
-            <thead>
-              <tr>
-                <th>Batter</th>
-                <th>Dismissal</th>
-                <th style="text-align: right;">R</th>
-                <th style="text-align: right;">B</th>
-                <th style="text-align: right;">4s</th>
-                <th style="text-align: right;">6s</th>
-                <th style="text-align: right;">SR</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Batting rows injected dynamically -->
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Extras Row -->
-        <div class="extras-row" id="extras-row-1">
-          <div class="row-label">Extras</div>
-          <div class="extras-breakdown" id="extras-breakdown-1">
-            <!-- Extras details -->
-          </div>
-        </div>
-
-        <!-- Total Score Row -->
-        <div class="total-row" id="total-row-1">
-          <div class="row-label">Total Score</div>
-          <div class="total-val" id="total-val-1">150/10 (18.5 Overs, RR: 7.96)</div>
-        </div>
-
-        <!-- Did Not Bat Row -->
-        <div class="dnb-row" id="dnb-row-1" style="display: none;">
-          <span class="dnb-label">Did not bat:</span>
-          <span class="dnb-players" id="dnb-players-1"></span>
-        </div>
-      </div>
-
-      <!-- Bowling Table Card -->
-      <div class="table-card">
-        <div class="card-title-row">
-          <div class="card-title">
-            <i class="fa-solid fa-bowling-ball"></i> <span id="bowlTeam1Header">United States Bowling</span>
-          </div>
-          <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" class="player-search" data-target="bowling-table-1" placeholder="Filter bowler...">
-          </div>
-        </div>
-
-        <div class="table-responsive">
-          <table class="data-table" id="bowling-table-1">
-            <thead>
-              <tr>
-                <th>Bowler</th>
-                <th style="text-align: right;">O</th>
-                <th style="text-align: right;">M</th>
-                <th style="text-align: right;">R</th>
-                <th style="text-align: right;">W</th>
-                <th style="text-align: right;">ECON</th>
-                <th style="text-align: right;">Dots</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Bowling rows injected dynamically -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Powerplay Breakdown -->
-      <div class="table-card">
-        <div class="card-title-row">
-          <div class="card-title">
-            <i class="fa-solid fa-bolt"></i> <span>Powerplay Details</span>
-          </div>
-        </div>
-        <div id="powerplay-container-1">
-          <!-- Powerplay cards -->
-        </div>
-      </div>
-
-      <!-- Fall of Wickets Card -->
-      <div class="table-card">
-        <div class="card-title-row">
-          <div class="card-title">
-            <i class="fa-solid fa-circle-exclamation"></i> <span>Fall of Wickets</span>
-          </div>
-        </div>
-        <div class="fow-grid" id="fow-grid-1">
-          <!-- FOW chips injected dynamically -->
-        </div>
-      </div>
-
-      <!-- Partnerships Card -->
-      <div class="table-card">
-        <div class="card-title-row">
-          <div class="card-title">
-            <i class="fa-solid fa-handshake"></i> <span>Partnerships Breakdown</span>
-          </div>
-        </div>
-        <div class="partnership-list" id="partnerships-1">
-          <!-- Partnerships injected dynamically -->
-        </div>
-      </div>
-
-    </main>
-
-    <!-- TAB 2: INNINGS 2 SCORECARD -->
-    <main class="scorecard-view" id="tab-innings-2">
-
-      <!-- Navigation back strip -->
-      <div class="scorecard-nav-bar">
-        <button type="button" class="btn btn-back-matches" onclick="goToCompletedMatches()">
-          <i class="fa-solid fa-arrow-left"></i> <span>Back to Completed Matches</span>
-        </button>
-        <div class="current-match-pill">
-          <i class="fa-solid fa-circle-check"></i> <span id="currentMatchPillText2">Scorecard View</span>
-        </div>
-      </div>
-      
-      <!-- Batting Table Card -->
-      <div class="table-card">
-        <div class="card-title-row">
-          <div class="card-title">
-            <i class="fa-solid fa-shirt"></i> <span id="batTeam2Header">United States Batting</span>
-          </div>
-          <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" class="player-search" data-target="batting-table-2" placeholder="Filter batter...">
-          </div>
-        </div>
-
-        <div class="table-responsive">
-          <table class="data-table" id="batting-table-2">
-            <thead>
-              <tr>
-                <th>Batter</th>
-                <th>Dismissal</th>
-                <th style="text-align: right;">R</th>
-                <th style="text-align: right;">B</th>
-                <th style="text-align: right;">4s</th>
-                <th style="text-align: right;">6s</th>
-                <th style="text-align: right;">SR</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Batting rows injected dynamically -->
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Extras Row -->
-        <div class="extras-row" id="extras-row-2">
-          <div class="row-label">Extras</div>
-          <div class="extras-breakdown" id="extras-breakdown-2">
-            <!-- Extras details -->
-          </div>
-        </div>
-
-        <!-- Total Score Row -->
-        <div class="total-row" id="total-row-2">
-          <div class="row-label">Total Score</div>
-          <div class="total-val" id="total-val-2">141/7 (20.0 Overs, RR: 7.05)</div>
-        </div>
-
-        <!-- Did Not Bat Row -->
-        <div class="dnb-row" id="dnb-row-2" style="display: none;">
-          <span class="dnb-label">Did not bat:</span>
-          <span class="dnb-players" id="dnb-players-2"></span>
-        </div>
-      </div>
-
-      <!-- Bowling Table Card -->
-      <div class="table-card">
-        <div class="card-title-row">
-          <div class="card-title">
-            <i class="fa-solid fa-bowling-ball"></i> <span id="bowlTeam2Header">Ireland Bowling</span>
-          </div>
-          <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" class="player-search" data-target="bowling-table-2" placeholder="Filter bowler...">
-          </div>
-        </div>
-
-        <div class="table-responsive">
-          <table class="data-table" id="bowling-table-2">
-            <thead>
-              <tr>
-                <th>Bowler</th>
-                <th style="text-align: right;">O</th>
-                <th style="text-align: right;">M</th>
-                <th style="text-align: right;">R</th>
-                <th style="text-align: right;">W</th>
-                <th style="text-align: right;">ECON</th>
-                <th style="text-align: right;">Dots</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Bowling rows injected dynamically -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Powerplay Breakdown -->
-      <div class="table-card">
-        <div class="card-title-row">
-          <div class="card-title">
-            <i class="fa-solid fa-bolt"></i> <span>Powerplay Details</span>
-          </div>
-        </div>
-        <div id="powerplay-container-2">
-          <!-- Powerplay cards -->
-        </div>
-      </div>
-
-      <!-- Fall of Wickets Card -->
-      <div class="table-card">
-        <div class="card-title-row">
-          <div class="card-title">
-            <i class="fa-solid fa-circle-exclamation"></i> <span>Fall of Wickets</span>
-          </div>
-        </div>
-        <div class="fow-grid" id="fow-grid-2">
-          <!-- FOW chips injected dynamically -->
-        </div>
-      </div>
-
-      <!-- Partnerships Card -->
-      <div class="table-card">
-        <div class="card-title-row">
-          <div class="card-title">
-            <i class="fa-solid fa-handshake"></i> <span>Partnerships Breakdown</span>
-          </div>
-        </div>
-        <div class="partnership-list" id="partnerships-2">
-          <!-- Partnerships injected dynamically -->
-        </div>
-      </div>
-
-    </main>
-
-    <!-- TAB: MATCH INFO (Cricbuzz Classic) -->
-    <main class="scorecard-view" id="tab-match-info">
-      <!-- Navigation back strip -->
-      <div class="scorecard-nav-bar">
-        <button type="button" class="btn btn-back-matches" onclick="goToCompletedMatches()">
-          <i class="fa-solid fa-arrow-left"></i> <span>Back to Completed Matches</span>
-        </button>
-        <div class="current-match-pill">
-          <i class="fa-solid fa-circle-info"></i> <span id="currentMatchPillTextInfo">Match Information</span>
-        </div>
-      </div>
-
-      <div class="match-info-grid">
-        <!-- Match Details Card -->
-        <div class="table-card info-card">
-          <div class="card-title-row">
-            <div class="card-title">
-              <i class="fa-solid fa-circle-info"></i> <span>Match Details</span>
-            </div>
-          </div>
-          <div class="info-details-table">
-            <div class="info-row">
-              <span class="info-label">Match</span>
-              <span class="info-val" id="infoMatchDesc">2nd T20I, Ireland tour of USA, 2021</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Series</span>
-              <span class="info-val" id="infoSeriesName">Ireland tour of USA, 2021</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Date</span>
-              <span class="info-val" id="infoDateTime">Dec 23, 2021</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Toss</span>
-              <span class="info-val" id="infoToss">United States won the toss and opted to bowl</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Venue</span>
-              <span class="info-val" id="infoVenue">Central Broward Regional Park Stadium Turf Ground, Lauderhill, Florida</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Umpires</span>
-              <span class="info-val" id="infoUmpires">Vijaya Mallela, Leslie Reifer</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Third Umpire</span>
-              <span class="info-val" id="infoThirdUmpire">Samir Bandekar</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Match Referee</span>
-              <span class="info-val" id="infoReferee">Jermaine Lindo</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Match Result</span>
-              <span class="info-val stat-bold" style="color: var(--accent-emerald);" id="infoResult">Ireland won by 9 runs</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Playing XI & Squads Card -->
-        <div class="table-card info-card">
-          <div class="card-title-row">
-            <div class="card-title">
-              <i class="fa-solid fa-users"></i> <span>Playing XI</span>
-            </div>
-          </div>
-          <div class="playing-xi-grid">
-            <div class="xi-team-box">
-              <div class="xi-team-header" id="xiTeam1Header">
-                <span id="xiTeam1Title">Ireland</span>
-              </div>
-              <div class="xi-players-list" id="xiTeam1List">
-                <!-- Injected dynamically -->
-              </div>
-            </div>
-            <div class="xi-team-box">
-              <div class="xi-team-header" id="xiTeam2Header">
-                <span id="xiTeam2Title">United States</span>
-              </div>
-              <div class="xi-players-list" id="xiTeam2List">
-                <!-- Injected dynamically -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <!-- TAB 3: MATCH ANALYTICS & COMPARISON -->
-    <main class="scorecard-view" id="tab-analytics">
-      <div class="analytics-grid">
-        <!-- Boundary Comparison Chart -->
-        <div class="chart-card">
-          <div class="card-title-row">
-            <div class="card-title"><i class="fa-solid fa-chart-pie"></i> <span>Boundary Analysis (4s vs 6s)</span></div>
-          </div>
-          <div class="chart-wrapper">
-            <canvas id="chartBoundaries"></canvas>
-          </div>
-        </div>
-
-        <!-- Run Rate Comparison Chart -->
-        <div class="chart-card">
-          <div class="card-title-row">
-            <div class="card-title"><i class="fa-solid fa-chart-column"></i> <span>Innings Comparison</span></div>
-          </div>
-          <div class="chart-wrapper">
-            <canvas id="chartComparison"></canvas>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <!-- TAB 4: UPCOMING MATCHES -->
-    <main class="scorecard-view" id="tab-upcoming">
+    <!-- ========================================================
+         SECTION 3: UPCOMING FIXTURES (#section-upcoming)
+         ======================================================== -->
+    <section class="app-main-section" id="section-upcoming">
       <!-- Controls Header: Category Filter Pills + Format Filter + Search Input -->
       <div class="upcoming-controls-card">
         <div class="upcoming-header-row">
@@ -641,10 +681,12 @@
       <div class="upcoming-matches-grid" id="upcomingMatchesGrid">
         <!-- Matches dynamically rendered here -->
       </div>
-    </main>
+    </section>
 
-    <!-- TAB 4B: UPCOMING TOURNAMENTS & SERIES -->
-    <main class="scorecard-view" id="tab-series">
+    <!-- ========================================================
+         SECTION 4: TOURNAMENTS & SERIES (#section-series)
+         ======================================================== -->
+    <section class="app-main-section" id="section-series">
       <div class="series-controls-card">
         <div class="series-header-row">
           <div class="series-title-box">
@@ -725,31 +767,7 @@
       <div class="series-grid" id="seriesGrid">
         <!-- Series cards dynamically rendered here -->
       </div>
-    </main>
-
-    <!-- TAB 5: COMPLETED MATCHES -->
-    <main class="scorecard-view" id="tab-completed">
-      <div class="upcoming-controls-card">
-        <div class="upcoming-header-row">
-          <div class="upcoming-title">
-            <i class="fa-solid fa-circle-check"></i>
-            <div>
-              <h2>Completed Matches & Results</h2>
-              <p>View finished match scorecards, results, and team performances stored in MySQL</p>
-            </div>
-          </div>
-          
-          <div class="search-box upcoming-search">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="completedSearchInput" placeholder="Search completed match, team, series...">
-          </div>
-        </div>
-      </div>
-
-      <div class="upcoming-matches-grid" id="completedMatchesGrid">
-        <!-- Completed match cards dynamically rendered -->
-      </div>
-    </main>
+    </section>
 
   </div>
 

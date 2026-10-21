@@ -74,7 +74,25 @@ function setupEventListeners() {
   // Theme button
   document.getElementById('btnThemeToggle').addEventListener('click', toggleTheme);
 
-  // Tab switching
+  // Site section switching (Scorecard, Recent Matches, Upcoming, Series)
+  const siteNavBtns = document.querySelectorAll('.site-nav-btn');
+  siteNavBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const section = btn.getAttribute('data-section');
+      if (section) switchSection(section);
+    });
+  });
+
+  // Match Sub-nav switching (Innings 1, Innings 2, Match Info, Analytics)
+  const subNavBtns = document.querySelectorAll('.sub-nav-btn');
+  subNavBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const subtab = btn.getAttribute('data-subtab');
+      if (subtab) switchMatchSubTab(subtab);
+    });
+  });
+
+  // Backward compatibility with .nav-tab
   const tabs = document.querySelectorAll('.nav-tab');
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -1073,9 +1091,11 @@ function resetUpcomingFilters() {
 }
 
 function updateUpcomingCounts(filteredMatches) {
-  // Badge on tab
+  // Badge on tab & main site nav
   const tabBadge = document.getElementById('tabBadgeUpcoming');
   if (tabBadge) tabBadge.innerText = allUpcomingMatches.length;
+  const navBadge = document.getElementById('navBadgeUpcoming');
+  if (navBadge) navBadge.innerText = allUpcomingMatches.length;
 
   // Type Pills counts
   const countAll = document.getElementById('countAll');
@@ -1285,6 +1305,8 @@ function renderCompletedMatches() {
 
   const tabBadge = document.getElementById('tabBadgeCompleted');
   if (tabBadge) tabBadge.innerText = allCompletedMatches.length;
+  const navBadge = document.getElementById('navBadgeCompleted');
+  if (navBadge) navBadge.innerText = allCompletedMatches.length;
 
   const filtered = allCompletedMatches.filter(m => {
     if (!currentCompletedSearchTerm) return true;
@@ -1431,18 +1453,12 @@ async function selectMatchScorecard(matchId) {
       ti.classList.toggle('active-ticker', ti.getAttribute('data-ticker-id') == matchId);
     });
 
-    // Switch to Innings 1 tab
-    const tabs = document.querySelectorAll('.nav-tab');
-    tabs.forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.scorecard-view').forEach(view => view.classList.remove('active'));
-
-    const tab1Btn = document.getElementById('tabBtnInnings1');
-    const tab1View = document.getElementById('tab-innings-1');
-    if (tab1Btn) tab1Btn.classList.add('active');
-    if (tab1View) tab1View.classList.add('active');
+    // Switch to Scorecard Section and Innings 1 sub-tab
+    switchSection('section-scorecard');
+    switchMatchSubTab('tab-innings-1');
 
     // Scroll to the top hero section so user sees the match header and innings
-    const heroSection = document.querySelector('.match-hero') || document.querySelector('.tabs-navigation');
+    const heroSection = document.querySelector('.match-hero') || document.querySelector('.app-header');
     if (heroSection) {
       heroSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -1458,56 +1474,103 @@ async function selectMatchScorecard(matchId) {
   }
 }
 
-// Switch Tab helper
-function switchTab(targetId) {
-  const tabs = document.querySelectorAll('.nav-tab');
-  const views = document.querySelectorAll('.scorecard-view');
+// Section Switching (Scorecard, Recent Matches, Upcoming, Series)
+function switchSection(sectionId) {
+  // Update site navigation buttons
+  document.querySelectorAll('.site-nav-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-section') === sectionId);
+  });
 
-  tabs.forEach(t => t.classList.toggle('active', t.getAttribute('data-tab') === targetId));
-  views.forEach(v => v.classList.toggle('active', v.id === targetId));
+  // Update main sections
+  document.querySelectorAll('.app-main-section').forEach(sec => {
+    sec.classList.toggle('active', sec.id === sectionId);
+  });
 
-  if (targetId === 'tab-match-info' && matchData) {
+  // Trigger loads based on section
+  if (sectionId === 'section-completed') {
+    ensureCompletedMatchesLoaded();
+    history.replaceState(null, '', '#completed');
+  } else if (sectionId === 'section-upcoming') {
+    ensureUpcomingMatchesLoaded();
+    history.replaceState(null, '', '#upcoming');
+  } else if (sectionId === 'section-series') {
+    ensureSeriesLoaded();
+    history.replaceState(null, '', '#series');
+  } else if (sectionId === 'section-scorecard') {
+    history.replaceState(null, '', '#scorecard');
+  }
+}
+
+// Scoped Match Sub-Tab Switching (Innings 1, Innings 2, Match Info, Analytics)
+function switchMatchSubTab(subTabId) {
+  // Ensure we are inside scorecard section
+  const scorecardSection = document.getElementById('section-scorecard');
+  if (scorecardSection && !scorecardSection.classList.contains('active')) {
+    switchSection('section-scorecard');
+  }
+
+  // Update sub-nav buttons
+  document.querySelectorAll('.sub-nav-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-subtab') === subTabId);
+  });
+
+  // Update sub-views inside scorecard
+  document.querySelectorAll('#section-scorecard .scorecard-view').forEach(view => {
+    view.classList.toggle('active', view.id === subTabId);
+  });
+
+  if (subTabId === 'tab-match-info' && matchData) {
     renderMatchInfo(matchData);
   }
-  if (targetId === 'tab-analytics' && matchData) {
+  if (subTabId === 'tab-analytics' && matchData) {
     renderAnalyticsCharts(matchData);
   }
-  if (targetId === 'tab-upcoming') {
-    ensureUpcomingMatchesLoaded();
-  }
-  if (targetId === 'tab-series') {
-    ensureSeriesLoaded();
-  }
-  if (targetId === 'tab-completed') {
-    ensureCompletedMatchesLoaded();
+}
+
+// Unified switchTab for backwards compatibility
+function switchTab(targetId) {
+  if (targetId === 'tab-completed' || targetId === 'section-completed') {
+    switchSection('section-completed');
+  } else if (targetId === 'tab-upcoming' || targetId === 'section-upcoming') {
+    switchSection('section-upcoming');
+  } else if (targetId === 'tab-series' || targetId === 'section-series') {
+    switchSection('section-series');
+  } else {
+    switchSection('section-scorecard');
+    switchMatchSubTab(targetId);
   }
 }
 
 function handleUrlHash() {
   const hash = (window.location.hash || '').replace('#', '').toLowerCase();
   if (hash === 'series' || hash === 'tournaments') {
-    switchTab('tab-series');
+    switchSection('section-series');
   } else if (hash === 'upcoming') {
-    switchTab('tab-upcoming');
-  } else if (hash === 'completed') {
-    switchTab('tab-completed');
+    switchSection('section-upcoming');
+  } else if (hash === 'completed' || hash === 'recent' || hash === 'results') {
+    switchSection('section-completed');
   } else if (hash === 'matchinfo' || hash === 'match-info' || hash === 'info') {
-    switchTab('tab-match-info');
+    switchSection('section-scorecard');
+    switchMatchSubTab('tab-match-info');
   } else if (hash === 'analytics') {
-    switchTab('tab-analytics');
-  } else if (hash === 'innings1' || hash === 'innings-1') {
-    switchTab('tab-innings-1');
+    switchSection('section-scorecard');
+    switchMatchSubTab('tab-analytics');
   } else if (hash === 'innings2' || hash === 'innings-2') {
-    switchTab('tab-innings-2');
+    switchSection('section-scorecard');
+    switchMatchSubTab('tab-innings-2');
+  } else {
+    // Default: Scorecard section with Innings 1
+    switchSection('section-scorecard');
+    switchMatchSubTab('tab-innings-1');
   }
 }
 
 // Return to Completed Matches tab
 function goToCompletedMatches() {
-  switchTab('tab-completed');
-  const compView = document.getElementById('tab-completed');
-  if (compView) {
-    compView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  switchSection('section-completed');
+  const compSection = document.getElementById('section-completed');
+  if (compSection) {
+    compSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
 
@@ -1966,6 +2029,8 @@ async function syncSeriesData() {
 }
 
 // Expose globally
+window.switchSection = switchSection;
+window.switchMatchSubTab = switchMatchSubTab;
 window.switchTab = switchTab;
 window.selectMatchScorecard = selectMatchScorecard;
 window.goToCompletedMatches = goToCompletedMatches;
@@ -1974,6 +2039,12 @@ window.closeSeriesScheduleModal = closeSeriesScheduleModal;
 window.resetSeriesFilters = resetSeriesFilters;
 window.renderMatchInfo = renderMatchInfo;
 window.loadLiveTicker = loadLiveTicker;
+window.updateSeriesTabBadge = function(count) {
+  const tabBadge = document.getElementById('tabBadgeSeries');
+  if (tabBadge) tabBadge.innerText = count;
+  const navBadge = document.getElementById('navBadgeSeries');
+  if (navBadge) navBadge.innerText = count;
+};
 
 /* ==========================================================================
    CRICBUZZ LIVE MATCH TICKER ENGINE
